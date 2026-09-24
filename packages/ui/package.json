@@ -16,11 +16,11 @@
   "homepage": "https://dev.stacklyui.in",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOUR_GITHUB_USERNAME/stacklyui.git",
+    "url": "git+https://github.com/soumyajiitt/stacklyui.git",
     "directory": "packages/ui"
   },
   "bugs": {
-    "url": "https://github.com/YOUR_GITHUB_USERNAME/stacklyui/issues"
+    "url": "https://github.com/soumyajiitt/stacklyui/issues"
   },
   "type": "module",
   "sideEffects": false,
