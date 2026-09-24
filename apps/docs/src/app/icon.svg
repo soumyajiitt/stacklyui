@@ -1,0 +1,8 @@
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="StacklyUI">
+  <!-- warm espresso badge, matching the dark-theme canvas, for tab-bar contrast -->
+  <rect width="32" height="32" rx="7" fill="#231E1A"/>
+  <!-- three stacked layers: amber -> orange -> coral (brand color on top) -->
+  <path d="M16 17 25 21 16 25 7 21Z" fill="#F0A94E" stroke="#231E1A" stroke-width="1" stroke-linejoin="round"/>
+  <path d="M16 11.5 25 15.5 16 19.5 7 15.5Z" fill="#EA7C3A" stroke="#231E1A" stroke-width="1" stroke-linejoin="round"/>
+  <path d="M16 6 25 10 16 14 7 10Z" fill="#E4512E" stroke="#231E1A" stroke-width="1" stroke-linejoin="round"/>
+</svg>

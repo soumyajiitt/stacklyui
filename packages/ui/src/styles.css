@@ -1,0 +1,679 @@
+/* StacklyUI component styles.
+ * Import once in your app:  import "@stacklyui/ui/styles.css";
+ *
+ * These styles are token-driven. The tokens below are sensible defaults so the
+ * components look right with zero configuration; override any --sui-* variable
+ * (globally or per-instance) to match your brand.
+ */
+
+/* Default theme: editorial "Paper" — warm neutral canvas, coral/amber accents. */
+:where(:root) {
+  --sui-bg: oklch(0.94 0.006 70);
+  --sui-surface: oklch(0.99 0.004 70 / 0.72);
+  --sui-surface-strong: oklch(0.995 0.003 70 / 0.95);
+  --sui-border: oklch(0.24 0.012 55 / 0.12);
+  --sui-border-strong: oklch(0.24 0.012 55 / 0.26);
+  --sui-fg: oklch(0.23 0.012 55);
+  --sui-muted: oklch(0.52 0.016 55);
+
+  --sui-accent: oklch(0.64 0.19 30);
+  --sui-accent-2: oklch(0.71 0.17 48);
+  --sui-accent-3: oklch(0.81 0.13 72);
+
+  --sui-accent-gradient: linear-gradient(
+    110deg,
+    oklch(0.64 0.19 30),
+    oklch(0.71 0.17 48),
+    oklch(0.81 0.13 72)
+  );
+  --sui-accent-glow: oklch(0.64 0.19 30 / 0.32);
+
+  --sui-radius: 0.75rem;
+  --sui-radius-sm: 0.5rem;
+  --sui-shadow: 0 1px 0 0 oklch(1 0 0 / 0.6) inset,
+    0 18px 40px -28px oklch(0.3 0.03 40 / 0.4);
+
+  /* Signature "stacked paper" offset — the StacklyUI look. */
+  --sui-offset: oklch(0.32 0.05 40 / 0.9);
+  --sui-offset-accent: oklch(0.5 0.17 30);
+}
+
+/* Warm dark variant — deep espresso, same coral accents. */
+:where(.dark) {
+  --sui-bg: oklch(0.19 0.012 50);
+  --sui-surface: oklch(1 0.02 70 / 0.05);
+  --sui-surface-strong: oklch(1 0.02 70 / 0.09);
+  --sui-border: oklch(1 0.02 70 / 0.12);
+  --sui-border-strong: oklch(1 0.02 70 / 0.24);
+  --sui-fg: oklch(0.95 0.01 70);
+  --sui-muted: oklch(0.72 0.02 62);
+
+  --sui-accent: oklch(0.68 0.19 33);
+  --sui-accent-2: oklch(0.74 0.16 50);
+  --sui-accent-3: oklch(0.83 0.13 76);
+  --sui-accent-glow: oklch(0.68 0.19 33 / 0.45);
+  --sui-shadow: 0 1px 0 0 oklch(1 0.02 70 / 0.06) inset,
+    0 24px 48px -24px oklch(0 0 0 / 0.7);
+  --sui-offset: oklch(0 0 0 / 0.55);
+  --sui-offset-accent: oklch(0.5 0.17 33);
+}
+
+/* ---------------------------------------------------------------- Aurora -- */
+.sui-aurora {
+  --sui-aurora-speed: 20s;
+}
+.sui-aurora__layers {
+  filter: blur(72px) saturate(150%);
+}
+.sui-aurora__blob {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  opacity: 0.55;
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+.sui-aurora__blob--1 {
+  top: -20%;
+  left: -10%;
+  width: 55%;
+  height: 55%;
+  background: radial-gradient(circle at 30% 30%, var(--sui-accent), transparent 60%);
+  animation: sui-aurora-1 var(--sui-aurora-speed) ease-in-out infinite alternate;
+}
+.sui-aurora__blob--2 {
+  top: -10%;
+  right: -15%;
+  width: 50%;
+  height: 60%;
+  background: radial-gradient(circle at 60% 40%, var(--sui-accent-3), transparent 60%);
+  animation: sui-aurora-2 calc(var(--sui-aurora-speed) * 1.3) ease-in-out infinite alternate;
+}
+.sui-aurora__blob--3 {
+  bottom: -25%;
+  left: 25%;
+  width: 55%;
+  height: 55%;
+  background: radial-gradient(circle at 50% 50%, var(--sui-accent-2), transparent 60%);
+  animation: sui-aurora-3 calc(var(--sui-aurora-speed) * 1.1) ease-in-out infinite alternate;
+}
+@keyframes sui-aurora-1 {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(12%, 18%, 0) scale(1.25); }
+}
+@keyframes sui-aurora-2 {
+  from { transform: translate3d(0, 0, 0) scale(1.1); }
+  to { transform: translate3d(-16%, 12%, 0) scale(0.9); }
+}
+@keyframes sui-aurora-3 {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(10%, -16%, 0) scale(1.2); }
+}
+.sui-aurora[data-static] .sui-aurora__blob {
+  animation: none;
+}
+
+/* --------------------------------------------------------- Spotlight card -- */
+.sui-spotlight-card {
+  position: relative;
+  border-radius: var(--sui-radius);
+  background: var(--sui-surface);
+  border: 1px solid var(--sui-border);
+  box-shadow: var(--sui-shadow);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.sui-spotlight-card--bordered::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    var(--sui-spot-radius) circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    var(--sui-accent),
+    transparent 45%
+  );
+  opacity: calc(var(--pointer-active, 0) * 0.9);
+  transition: opacity 0.35s ease;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.sui-spotlight-card__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    var(--sui-spot-radius) circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    var(--sui-spot-color),
+    transparent 55%
+  );
+  opacity: var(--pointer-active, 0);
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.sui-spotlight-card__content {
+  position: relative;
+  z-index: 1;
+  padding: 1.5rem;
+}
+
+/* ------------------------------------------------------------- Card 3D -- */
+.sui-card3d {
+  perspective: 1000px;
+}
+.sui-card3d__inner {
+  position: relative;
+  height: 100%;
+  border-radius: var(--sui-radius);
+  background: var(--sui-surface);
+  border: 1px solid var(--sui-border);
+  box-shadow: var(--sui-shadow);
+  backdrop-filter: blur(12px);
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
+    translateZ(calc(var(--active, 0) * var(--sui-card3d-lift, 40px)));
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+.sui-card3d:hover .sui-card3d__inner {
+  border-color: var(--sui-border-strong);
+}
+.sui-card3d__glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--gx, 50%) var(--gy, 50%),
+    oklch(1 0 0 / 0.35),
+    transparent 45%
+  );
+  opacity: calc(var(--active, 0) * 0.8);
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* --------------------------------------------------------- Gradient text -- */
+.sui-gradient-text {
+  --sui-text-gradient: var(--sui-accent-gradient);
+  --sui-gradient-duration: 6s;
+  background-image: var(--sui-text-gradient);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.sui-gradient-text--animated {
+  animation: sui-gradient-sweep var(--sui-gradient-duration) linear infinite;
+}
+@keyframes sui-gradient-sweep {
+  to { background-position: 200% center; }
+}
+
+/* -------------------------------------------------------------- Bento -- */
+.sui-bento-grid {
+  --sui-bento-cols: 3;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+  grid-auto-rows: minmax(11rem, auto);
+}
+@media (min-width: 768px) {
+  .sui-bento-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .sui-bento-grid {
+    grid-template-columns: repeat(var(--sui-bento-cols), minmax(0, 1fr));
+  }
+  .sui-bento-card {
+    grid-column: span min(var(--sui-col-span), var(--sui-bento-cols)) / span
+      min(var(--sui-col-span), var(--sui-bento-cols));
+    grid-row: span var(--sui-row-span) / span var(--sui-row-span);
+  }
+}
+.sui-bento-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--sui-radius);
+  border: 1px solid var(--sui-border);
+  background: var(--sui-surface);
+  box-shadow: var(--sui-shadow);
+  backdrop-filter: blur(12px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s ease;
+  will-change: transform;
+}
+.sui-bento-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--sui-border-strong);
+}
+.sui-bento-card__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    260px circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
+    var(--sui-accent-glow),
+    transparent 60%
+  );
+  opacity: var(--pointer-active, 0);
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.sui-bento-card__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.sui-bento-card__body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  padding: 1.5rem;
+}
+.sui-bento-card__eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--sui-accent-3);
+}
+.sui-bento-card__title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--sui-fg);
+  margin: 0;
+}
+.sui-bento-card__description {
+  font-size: 0.925rem;
+  line-height: 1.55;
+  color: var(--sui-muted);
+  margin: 0;
+}
+
+/* ------------------------------------------------------------- Marquee -- */
+.sui-marquee {
+  --sui-marquee-duration: 40s;
+  --sui-marquee-gap: 1rem;
+  --sui-marquee-direction: normal;
+  display: flex;
+  overflow: hidden;
+  gap: var(--sui-marquee-gap);
+}
+.sui-marquee--horizontal {
+  flex-direction: row;
+  width: 100%;
+}
+.sui-marquee--vertical {
+  flex-direction: column;
+  height: 100%;
+}
+.sui-marquee__track {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--sui-marquee-gap);
+  min-width: 100%;
+  align-items: center;
+}
+.sui-marquee--horizontal .sui-marquee__track {
+  flex-direction: row;
+  animation: sui-marquee-x var(--sui-marquee-duration) linear infinite;
+  animation-direction: var(--sui-marquee-direction);
+}
+.sui-marquee--vertical .sui-marquee__track {
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100%;
+  animation: sui-marquee-y var(--sui-marquee-duration) linear infinite;
+  animation-direction: var(--sui-marquee-direction);
+}
+.sui-marquee--pause-hover:hover .sui-marquee__track {
+  animation-play-state: paused;
+}
+.sui-marquee--fade.sui-marquee--horizontal {
+  -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.sui-marquee--fade.sui-marquee--vertical {
+  -webkit-mask: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
+  mask: linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent);
+}
+@keyframes sui-marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - var(--sui-marquee-gap))); }
+}
+@keyframes sui-marquee-y {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-100% - var(--sui-marquee-gap))); }
+}
+
+/* ------------------------------------------------------ Magnetic button -- */
+.sui-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease,
+    border-color 0.3s ease, color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.sui-btn__label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.sui-btn--sm { padding: 0.5rem 1rem; font-size: 0.8125rem; }
+.sui-btn--md { padding: 0.7rem 1.4rem; font-size: 0.9rem; }
+.sui-btn--lg { padding: 0.9rem 1.9rem; font-size: 1rem; }
+.sui-btn--primary {
+  color: white;
+  background-image: var(--sui-accent-gradient);
+  background-size: 150% 150%;
+  box-shadow: 0 8px 30px -8px var(--sui-accent-glow);
+}
+.sui-btn--primary:hover {
+  box-shadow: 0 12px 40px -6px var(--sui-accent-glow);
+}
+.sui-btn--secondary {
+  color: var(--sui-fg);
+  background: var(--sui-surface-strong);
+  border-color: var(--sui-border);
+  backdrop-filter: blur(10px);
+}
+.sui-btn--secondary:hover { border-color: var(--sui-border-strong); }
+.sui-btn--ghost {
+  color: var(--sui-fg);
+  background: transparent;
+}
+.sui-btn--ghost:hover { background: var(--sui-surface); }
+.sui-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--sui-bg), 0 0 0 4px var(--sui-accent);
+}
+.sui-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.sui-btn__ripple {
+  position: absolute;
+  z-index: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  translate: -50% -50%;
+  background: currentColor;
+  opacity: 0.35;
+  pointer-events: none;
+  animation: sui-ripple 0.65s ease-out forwards;
+}
+@keyframes sui-ripple {
+  to { transform: scale(38); opacity: 0; }
+}
+
+/* -------------------------------------------------------- Number ticker -- */
+.sui-number-ticker {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------- Theme toggle -- */
+.sui-theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--sui-border);
+  background: var(--sui-surface);
+  color: var(--sui-fg);
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+.sui-theme-toggle:hover { border-color: var(--sui-border-strong); }
+.sui-theme-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--sui-bg), 0 0 0 4px var(--sui-accent);
+}
+.sui-theme-toggle__icon {
+  position: absolute;
+  width: 1.15rem;
+  height: 1.15rem;
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sui-theme-toggle__sun { opacity: 0; transform: rotate(-90deg) scale(0.5); }
+.sui-theme-toggle__moon { opacity: 1; transform: rotate(0) scale(1); }
+:where(.dark) .sui-theme-toggle__sun { opacity: 1; transform: rotate(0) scale(1); }
+:where(.dark) .sui-theme-toggle__moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
+
+/* ------------------------------------------------------ Reduced motion -- */
+@media (prefers-reduced-motion: reduce) {
+  .sui-aurora__blob,
+  .sui-gradient-text--animated,
+  .sui-marquee__track,
+  .sui-btn__ripple,
+  .sui-btn--primary {
+    animation: none !important;
+  }
+  .sui-marquee {
+    -webkit-mask: none;
+    mask: none;
+    overflow: auto;
+  }
+  .sui-bento-card,
+  .sui-theme-toggle__icon,
+  .sui-spotlight-card {
+    transition: none !important;
+  }
+  .sui-card3d__inner {
+    transform: none !important;
+    transition: none !important;
+  }
+  .sui-card3d__glare {
+    display: none;
+  }
+}
+
+/* ============================================================ Primitives ==
+ * The StacklyUI signature: a crisp "stacked-paper" offset that presses in on
+ * click. This is what sets the components apart from soft shadcn / material MUI.
+ */
+.sui-raise {
+  box-shadow: 3px 4px 0 -1px var(--sui-offset);
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.16s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.16s ease,
+    border-color 0.16s ease, filter 0.16s ease;
+}
+.sui-raise:hover {
+  transform: translate(-1px, -2px);
+  box-shadow: 4px 6px 0 -1px var(--sui-offset);
+}
+.sui-raise:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 0 var(--sui-offset);
+}
+.sui-raise-accent {
+  box-shadow: 3px 4px 0 -1px var(--sui-offset-accent);
+}
+.sui-raise-accent:hover {
+  box-shadow: 4px 6px 0 -1px var(--sui-offset-accent);
+}
+.sui-raise-accent:active {
+  box-shadow: 0 0 0 0 var(--sui-offset-accent);
+}
+/* Static paper offset for non-interactive surfaces (cards, alerts, popovers). */
+.sui-paper {
+  box-shadow: 4px 5px 0 -1px var(--sui-offset);
+}
+.sui-paper-sm {
+  box-shadow: 2px 3px 0 -1px var(--sui-offset);
+}
+.sui-raise-sm {
+  box-shadow: 2px 3px 0 -1px var(--sui-offset);
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.sui-raise-sm:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 4px 0 -1px var(--sui-offset);
+}
+.sui-raise-sm:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0 0 0 0 var(--sui-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sui-raise,
+  .sui-raise-sm {
+    transition: none !important;
+  }
+  .sui-raise:hover,
+  .sui-raise:active,
+  .sui-raise-sm:hover,
+  .sui-raise-sm:active {
+    transform: none;
+  }
+}
+
+/*
+ * Enter/exit animations for Radix-based overlays. Radix keeps the element
+ * mounted until these CSS animations finish, so no JS is needed.
+ */
+@keyframes sui-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes sui-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes sui-pop-in {
+  from { opacity: 0; transform: scale(0.96) translateY(-2px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes sui-pop-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.96); }
+}
+@keyframes sui-dialog-in {
+  from { opacity: 0; transform: translate(-50%, -46%) scale(0.96); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes sui-dialog-out {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 0; transform: translate(-50%, -46%) scale(0.96); }
+}
+@keyframes sui-acc-down {
+  from { height: 0; opacity: 0; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+@keyframes sui-acc-up {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to { height: 0; opacity: 0; }
+}
+@keyframes sui-sheet-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@keyframes sui-sheet-out-right {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+.sui-overlay[data-state="open"] { animation: sui-fade-in 0.2s ease-out; }
+.sui-overlay[data-state="closed"] { animation: sui-fade-out 0.15s ease-in; }
+
+.sui-pop {
+  transform-origin: var(--radix-popper-transform-origin, center);
+}
+.sui-pop[data-state="open"] { animation: sui-pop-in 0.16s cubic-bezier(0.16, 1, 0.3, 1); }
+.sui-pop[data-state="closed"] { animation: sui-pop-out 0.12s ease-in; }
+
+.sui-dialog[data-state="open"] { animation: sui-dialog-in 0.22s cubic-bezier(0.16, 1, 0.3, 1); }
+.sui-dialog[data-state="closed"] { animation: sui-dialog-out 0.16s ease-in; }
+
+@keyframes sui-sheet-in-left { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@keyframes sui-sheet-out-left { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@keyframes sui-sheet-in-top { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+@keyframes sui-sheet-out-top { from { transform: translateY(0); } to { transform: translateY(-100%); } }
+@keyframes sui-sheet-in-bottom { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes sui-sheet-out-bottom { from { transform: translateY(0); } to { transform: translateY(100%); } }
+
+.sui-sheet-right[data-state="open"] { animation: sui-sheet-in-right 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.sui-sheet-right[data-state="closed"] { animation: sui-sheet-out-right 0.24s ease-in; }
+.sui-sheet-left[data-state="open"] { animation: sui-sheet-in-left 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.sui-sheet-left[data-state="closed"] { animation: sui-sheet-out-left 0.24s ease-in; }
+.sui-sheet-top[data-state="open"] { animation: sui-sheet-in-top 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.sui-sheet-top[data-state="closed"] { animation: sui-sheet-out-top 0.24s ease-in; }
+.sui-sheet-bottom[data-state="open"] { animation: sui-sheet-in-bottom 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+.sui-sheet-bottom[data-state="closed"] { animation: sui-sheet-out-bottom 0.24s ease-in; }
+
+.sui-accordion-content { overflow: hidden; }
+.sui-accordion-content[data-state="open"] { animation: sui-acc-down 0.26s cubic-bezier(0.16, 1, 0.3, 1); }
+.sui-accordion-content[data-state="closed"] { animation: sui-acc-up 0.22s ease-in; }
+
+/* Spinner */
+.sui-spinner {
+  animation: sui-spin 0.7s linear infinite;
+}
+@keyframes sui-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Skeleton shimmer */
+.sui-skeleton {
+  position: relative;
+  overflow: hidden;
+}
+.sui-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    oklch(1 0 0 / 0.12),
+    transparent
+  );
+  animation: sui-shimmer 1.6s infinite;
+}
+@keyframes sui-shimmer {
+  100% { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sui-overlay,
+  .sui-pop,
+  .sui-dialog,
+  [class*="sui-sheet-"],
+  .sui-accordion-content,
+  .sui-skeleton::after {
+    animation: none !important;
+  }
+  .sui-spinner {
+    animation-duration: 1.4s !important;
+  }
+}

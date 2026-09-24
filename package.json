@@ -1,0 +1,24 @@
+{
+  "name": "stacklyui-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "StacklyUI — a beautifully animated, accessible React component library.",
+  "scripts": {
+    "dev": "pnpm --filter docs dev",
+    "build": "pnpm --filter @stacklyui/ui build && pnpm --filter docs build",
+    "build:ui": "pnpm --filter @stacklyui/ui build",
+    "build:docs": "pnpm --filter docs build",
+    "registry:build": "pnpm --filter docs registry:build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm --filter docs lint",
+    "clean": "pnpm -r exec rimraf dist .next node_modules/.cache"
+  },
+  "devDependencies": {
+    "rimraf": "6.0.1",
+    "typescript": "5.9.2"
+  },
+  "packageManager": "pnpm@11.22.0",
+  "engines": {
+    "node": ">=18.18.0"
+  }
+}

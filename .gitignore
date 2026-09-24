@@ -1,0 +1,31 @@
+# dependencies
+node_modules
+.pnpm-store
+
+# builds
+dist
+.next
+out
+build
+
+# generated registry output
+apps/docs/public/r
+
+# env
+.env
+.env.local
+.env*.local
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# os / editor
+.DS_Store
+Thumbs.db
+.idea
+*.tsbuildinfo
+
+# testing / coverage
+coverage

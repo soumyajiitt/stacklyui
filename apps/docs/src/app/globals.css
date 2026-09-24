@@ -1,0 +1,350 @@
+@import "tailwindcss";
+
+/* Scan the workspace UI package source so its Tailwind utilities are generated. */
+@source "../../../../packages/ui/src/**/*.{ts,tsx}";
+
+/* Ship the StacklyUI component styles (sui-* classes, reduced-motion guards). */
+@import "@stacklyui/ui/styles.css";
+
+/* Dark mode is driven by a `.dark` class on <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* --------------------------------------------------------------- Tokens -- */
+@theme {
+  --color-bg: oklch(0.94 0.006 70);
+  --color-surface: oklch(0.99 0.004 70 / 0.72);
+  --color-surface-strong: oklch(0.995 0.003 70 / 0.95);
+  --color-fg: oklch(0.23 0.012 55);
+  --color-muted: oklch(0.52 0.016 55);
+  --color-border: oklch(0.24 0.012 55 / 0.12);
+  --color-border-strong: oklch(0.24 0.012 55 / 0.26);
+  --color-line: oklch(0.24 0.012 55 / 0.14);
+
+  --color-accent: oklch(0.64 0.19 30);
+  --color-accent-2: oklch(0.71 0.17 48);
+  --color-accent-3: oklch(0.81 0.13 72);
+  --color-accent-fg: oklch(0.99 0.01 80);
+
+  --color-card: oklch(0.985 0.004 70);
+  --color-popover: oklch(0.99 0.003 70);
+  --color-input: oklch(0.24 0.012 55 / 0.2);
+  --color-ring: oklch(0.64 0.19 30);
+  --color-destructive: oklch(0.58 0.2 25);
+  --color-destructive-fg: oklch(0.99 0.01 80);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1.25rem;
+
+  --animate-fade-up: sui-fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Warm dark variant for the docs chrome tokens. */
+.dark {
+  --color-bg: oklch(0.19 0.012 50);
+  --color-surface: oklch(1 0.02 70 / 0.05);
+  --color-surface-strong: oklch(1 0.02 70 / 0.09);
+  --color-fg: oklch(0.95 0.01 70);
+  --color-muted: oklch(0.72 0.02 62);
+  --color-border: oklch(1 0.02 70 / 0.12);
+  --color-border-strong: oklch(1 0.02 70 / 0.24);
+  --color-line: oklch(1 0.02 70 / 0.12);
+
+  --color-accent: oklch(0.68 0.19 33);
+  --color-accent-2: oklch(0.74 0.16 50);
+  --color-accent-3: oklch(0.83 0.13 76);
+  --color-accent-fg: oklch(0.99 0.01 80);
+
+  --color-card: oklch(0.22 0.014 52);
+  --color-popover: oklch(0.24 0.016 52);
+  --color-input: oklch(1 0.02 70 / 0.16);
+  --color-ring: oklch(0.68 0.19 33);
+  --color-destructive: oklch(0.62 0.2 25);
+  --color-destructive-fg: oklch(0.99 0.01 80);
+}
+
+/* ---------------------------------------------------- Inverted band -- */
+/* A full-bleed section that renders in the OPPOSITE scheme of the page,
+   so the color-blocked rhythm survives a light/dark theme switch:
+   light page -> dark band, dark page -> light band. Flips both the docs
+   (--color-*) and component (--sui-*) tokens for its subtree. */
+.sui-invert {
+  color-scheme: dark;
+  --color-bg: oklch(0.19 0.012 50);
+  --color-surface: oklch(1 0.02 70 / 0.05);
+  --color-surface-strong: oklch(1 0.02 70 / 0.09);
+  --color-fg: oklch(0.95 0.01 70);
+  --color-muted: oklch(0.72 0.02 62);
+  --color-border: oklch(1 0.02 70 / 0.12);
+  --color-border-strong: oklch(1 0.02 70 / 0.24);
+  --color-line: oklch(1 0.02 70 / 0.12);
+  --color-accent: oklch(0.68 0.19 33);
+  --color-accent-2: oklch(0.74 0.16 50);
+  --color-accent-3: oklch(0.83 0.13 76);
+  --color-card: oklch(0.22 0.014 52);
+  --color-popover: oklch(0.24 0.016 52);
+  --color-input: oklch(1 0.02 70 / 0.16);
+  --color-ring: oklch(0.68 0.19 33);
+  --sui-bg: oklch(0.19 0.012 50);
+  --sui-surface: oklch(1 0.02 70 / 0.05);
+  --sui-surface-strong: oklch(1 0.02 70 / 0.09);
+  --sui-border: oklch(1 0.02 70 / 0.12);
+  --sui-border-strong: oklch(1 0.02 70 / 0.24);
+  --sui-fg: oklch(0.95 0.01 70);
+  --sui-muted: oklch(0.72 0.02 62);
+  --sui-accent: oklch(0.68 0.19 33);
+  --sui-accent-2: oklch(0.74 0.16 50);
+  --sui-accent-3: oklch(0.83 0.13 76);
+  --sui-accent-glow: oklch(0.68 0.19 33 / 0.45);
+  --sui-shadow: 0 1px 0 0 oklch(1 0.02 70 / 0.06) inset,
+    0 24px 48px -24px oklch(0 0 0 / 0.7);
+  --sui-offset: oklch(0 0 0 / 0.55);
+  --sui-offset-accent: oklch(0.5 0.17 33);
+}
+/* When the page itself is dark, the inverted band flips light instead. */
+.dark .sui-invert {
+  color-scheme: light;
+  --color-bg: oklch(0.94 0.006 70);
+  --color-surface: oklch(0.99 0.004 70 / 0.72);
+  --color-surface-strong: oklch(0.995 0.003 70 / 0.95);
+  --color-fg: oklch(0.23 0.012 55);
+  --color-muted: oklch(0.52 0.016 55);
+  --color-border: oklch(0.24 0.012 55 / 0.12);
+  --color-border-strong: oklch(0.24 0.012 55 / 0.26);
+  --color-line: oklch(0.24 0.012 55 / 0.14);
+  --color-accent: oklch(0.64 0.19 30);
+  --color-accent-2: oklch(0.71 0.17 48);
+  --color-accent-3: oklch(0.81 0.13 72);
+  --color-card: oklch(0.985 0.004 70);
+  --color-popover: oklch(0.99 0.003 70);
+  --color-input: oklch(0.24 0.012 55 / 0.2);
+  --color-ring: oklch(0.64 0.19 30);
+  --sui-bg: oklch(0.94 0.006 70);
+  --sui-surface: oklch(0.99 0.004 70 / 0.72);
+  --sui-surface-strong: oklch(0.995 0.003 70 / 0.95);
+  --sui-border: oklch(0.24 0.012 55 / 0.12);
+  --sui-border-strong: oklch(0.24 0.012 55 / 0.26);
+  --sui-fg: oklch(0.23 0.012 55);
+  --sui-muted: oklch(0.52 0.016 55);
+  --sui-accent: oklch(0.64 0.19 30);
+  --sui-accent-2: oklch(0.71 0.17 48);
+  --sui-accent-3: oklch(0.81 0.13 72);
+  --sui-accent-glow: oklch(0.64 0.19 30 / 0.32);
+  --sui-shadow: 0 1px 0 0 oklch(1 0 0 / 0.6) inset,
+    0 18px 40px -28px oklch(0.3 0.03 40 / 0.4);
+  --sui-offset: oklch(0.32 0.05 40 / 0.9);
+  --sui-offset-accent: oklch(0.5 0.17 30);
+}
+
+@keyframes sui-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------------- Base / surface -- */
+:root {
+  color-scheme: light;
+}
+.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Lenis smooth-scroll requirements. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle page-wide dotted grid backdrop. */
+.sui-page-grid {
+  background-image: radial-gradient(
+    oklch(0.5 0.08 50 / 0.1) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+  -webkit-mask: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  mask: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+}
+.dark .sui-page-grid {
+  background-image: radial-gradient(
+    oklch(1 0.03 75 / 0.06) 1px,
+    transparent 1px
+  );
+}
+
+/* Selection + focus polish. */
+::selection {
+  background: oklch(0.64 0.19 30 / 0.24);
+}
+
+/* react-live editor: comfortable padding + visible caret. */
+.sui-live-editor {
+  min-height: 100%;
+}
+.sui-live-editor > pre,
+.sui-live-editor > textarea {
+  padding: 1.1rem 1.35rem !important;
+  outline: none !important;
+}
+.sui-live-editor > textarea {
+  caret-color: var(--color-accent);
+}
+.sui-live-editor > textarea:focus {
+  outline: none !important;
+}
+
+/* Shiki dual-theme: light is the default, .dark swaps to the dark tokens. */
+.sui-code .shiki,
+.sui-code .shiki span {
+  color: var(--shiki-light);
+  background-color: transparent;
+}
+.dark .sui-code .shiki,
+.dark .sui-code .shiki span {
+  color: var(--shiki-dark);
+}
+.sui-code .shiki {
+  margin: 0;
+}
+
+/* Thin scrollbars in the docs shell. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+/* -------------------------------------------------- Editorial system -- */
+
+/* Fixed hairline accent bar across the very top of the page. */
+.edtop {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--color-accent),
+    var(--color-accent-2),
+    var(--color-accent-3)
+  );
+  transform-origin: left;
+}
+
+/* Big editorial display heading. */
+.display {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+/* Monospace index / label like [002], CORE TOOL. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Section index number in the left rail (01, 02...). */
+.rail-num {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+}
+
+/* Custom cursor: hide native cursor on fine pointers, draw our own. */
+@media (hover: hover) and (pointer: fine) {
+  .cursor-on,
+  .cursor-on * {
+    cursor: none;
+  }
+}
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 90;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background: var(--color-accent);
+}
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 1.5px solid var(--color-fg);
+  mix-blend-mode: difference;
+  transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease,
+    opacity 0.25s ease, background-color 0.25s ease;
+}
+.cursor-ring[data-variant="hover"] {
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  background: oklch(1 0 0 / 0.08);
+}
+
+/* Big faint decorative ring. */
+.deco-ring {
+  border-radius: 50%;
+  border: 1px solid var(--color-accent);
+  opacity: 0.16;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+  .cursor-on,
+  .cursor-on * {
+    cursor: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
