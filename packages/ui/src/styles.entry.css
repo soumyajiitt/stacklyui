@@ -1,0 +1,91 @@
+/* Build entry for the SHIPPED stylesheet (compiled to dist/styles.css).
+ *
+ * Consumers get a self-contained sheet — design tokens + the exact Tailwind
+ * utilities the components use + the hand-written sui-* layer — so a plain
+ * `npm i @stacklyui/ui` + `import "@stacklyui/ui/styles.css"` renders correctly
+ * with NO Tailwind required in the consuming app.
+ *
+ * This is NOT the dev export: the workspace/docs app imports ./styles.css
+ * directly (it brings its own Tailwind pipeline + tokens via globals.css).
+ * Compiled by the Tailwind v4 CLI — see the package "build" script.
+ */
+
+/* Import only theme + utilities (deliberately NOT preflight.css) so this sheet
+ * doesn't reset the host app's typography, margins, or headings. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Hand-written sui-* classes + --sui-* tokens (inlined into the output). */
+@import "./styles.css";
+
+/* Scan the component source so only the utilities actually used are emitted. */
+@source "./**/*.{ts,tsx}";
+
+/* Dark mode is driven by a `.dark` class on an ancestor (matches ThemeToggle). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* The slice of Preflight the utilities depend on — border reset (so `border`
+ * renders with a style) and border-box sizing — and nothing else. */
+@layer base {
+  *,
+  ::before,
+  ::after,
+  ::backdrop {
+    box-sizing: border-box;
+    border: 0 solid;
+  }
+}
+
+/* Design tokens. `static` forces every token into :root even when it's consumed
+ * only through a raw var() (e.g. Progress/Slider gradients) rather than a
+ * utility class, so nothing is tree-shaken away. */
+@theme static {
+  --color-bg: oklch(0.94 0.006 70);
+  --color-surface: oklch(0.99 0.004 70 / 0.72);
+  --color-surface-strong: oklch(0.995 0.003 70 / 0.95);
+  --color-fg: oklch(0.23 0.012 55);
+  --color-muted: oklch(0.52 0.016 55);
+  --color-border: oklch(0.24 0.012 55 / 0.12);
+  --color-border-strong: oklch(0.24 0.012 55 / 0.26);
+  --color-line: oklch(0.24 0.012 55 / 0.14);
+
+  --color-accent: oklch(0.64 0.19 30);
+  --color-accent-2: oklch(0.71 0.17 48);
+  --color-accent-3: oklch(0.81 0.13 72);
+  --color-accent-fg: oklch(0.99 0.01 80);
+
+  --color-card: oklch(0.985 0.004 70);
+  --color-popover: oklch(0.99 0.003 70);
+  --color-input: oklch(0.24 0.012 55 / 0.2);
+  --color-ring: oklch(0.64 0.19 30);
+  --color-destructive: oklch(0.58 0.2 25);
+  --color-destructive-fg: oklch(0.99 0.01 80);
+
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1.25rem;
+}
+
+/* Warm dark variant — deep espresso, same coral accents. */
+.dark {
+  --color-bg: oklch(0.19 0.012 50);
+  --color-surface: oklch(1 0.02 70 / 0.05);
+  --color-surface-strong: oklch(1 0.02 70 / 0.09);
+  --color-fg: oklch(0.95 0.01 70);
+  --color-muted: oklch(0.72 0.02 62);
+  --color-border: oklch(1 0.02 70 / 0.12);
+  --color-border-strong: oklch(1 0.02 70 / 0.24);
+  --color-line: oklch(1 0.02 70 / 0.12);
+
+  --color-accent: oklch(0.68 0.19 33);
+  --color-accent-2: oklch(0.74 0.16 50);
+  --color-accent-3: oklch(0.83 0.13 76);
+  --color-accent-fg: oklch(0.99 0.01 80);
+
+  --color-card: oklch(0.22 0.014 52);
+  --color-popover: oklch(0.24 0.016 52);
+  --color-input: oklch(1 0.02 70 / 0.16);
+  --color-ring: oklch(0.68 0.19 33);
+  --color-destructive: oklch(0.62 0.2 25);
+  --color-destructive-fg: oklch(0.99 0.01 80);
+}

@@ -1,5 +1,4 @@
 import { defineConfig } from "tsup";
-import { copyFileSync } from "node:fs";
 
 export default defineConfig({
   entry: ["src/index.ts"],
@@ -10,14 +9,11 @@ export default defineConfig({
   minify: false,
   sourcemap: true,
   external: ["react", "react-dom", "motion", "motion/react"],
-  loader: { ".css": "copy" },
   esbuildOptions(options) {
     // Preserve the top-of-file "use client" directives that RSC bundlers rely on.
     options.banner = { js: '"use client";' };
   },
-  // styles.css is a standalone sheet (never imported into the JS graph), so copy
-  // it into dist so the `@stacklyui/ui/styles.css` publish export resolves.
-  async onSuccess() {
-    copyFileSync("src/styles.css", "dist/styles.css");
-  },
+  // NOTE: dist/styles.css is produced by the Tailwind CLI step in the package
+  // "build" script (tsup runs first with clean:true, then Tailwind writes the
+  // self-contained sheet), so there is no CSS copy step here.
 });
