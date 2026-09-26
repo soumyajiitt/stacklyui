@@ -486,6 +486,51 @@
       "dependencies": ["radix-ui"],
       "registryDependencies": ["cn"],
       "files": [{ "path": "../../packages/ui/src/components/sheet.tsx", "type": "registry:ui", "target": "components/stackly/sheet.tsx" }]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "Dependency-free searchable single-select — typeahead filtering, grouping, creatable rows, ARIA combobox keyboard nav, and a portal-positioned dropdown (no Radix, no cmdk).",
+      "dependencies": ["motion"],
+      "registryDependencies": ["cn", "use-reduced-motion"],
+      "files": [{ "path": "../../packages/ui/src/components/combobox.tsx", "type": "registry:ui", "target": "components/stackly/combobox.tsx" }]
+    },
+    {
+      "name": "multi-select",
+      "type": "registry:ui",
+      "title": "Multi Select",
+      "description": "Searchable multi-select with inline removable chips, select-all, +N-more overflow, a selection cap, grouping, and creatable tags — dependency-free (no Radix).",
+      "dependencies": ["motion"],
+      "registryDependencies": ["cn", "use-reduced-motion"],
+      "files": [{ "path": "../../packages/ui/src/components/multi-select.tsx", "type": "registry:ui", "target": "components/stackly/multi-select.tsx" }]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Stateful pagination with ellipsis truncation, a gliding active pill (Motion layoutId), edge jumps, summary line, page jumper, and a rows-per-page picker.",
+      "dependencies": ["motion"],
+      "registryDependencies": ["cn"],
+      "files": [{ "path": "../../packages/ui/src/components/pagination.tsx", "type": "registry:ui", "target": "components/stackly/pagination.tsx" }]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "description": "A formatted date field wired to the dependency-free Calendar in a popover — single or range, dual-month panels, presets, markers, clearable, native form support.",
+      "dependencies": ["radix-ui", "motion"],
+      "registryDependencies": ["cn", "use-reduced-motion", "popover", "calendar"],
+      "files": [{ "path": "../../packages/ui/src/components/date-picker.tsx", "type": "registry:ui", "target": "components/stackly/date-picker.tsx" }]
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "Sonner-style imperative toasts — a collapsed stack that expands on hover, swipe-to-dismiss, an auto-dismiss progress bar, promise/loading states, actions, and rich colors.",
+      "dependencies": ["motion"],
+      "registryDependencies": ["cn", "use-reduced-motion"],
+      "files": [{ "path": "../../packages/ui/src/components/toast.tsx", "type": "registry:ui", "target": "components/stackly/toast.tsx" }]
     }
   ]
 }

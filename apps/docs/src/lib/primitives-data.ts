@@ -308,6 +308,187 @@ render(<Demo />)`,
 )`,
   },
   {
+    slug: "combobox",
+    title: "Combobox",
+    badge: "new",
+    description:
+      "A searchable, data-driven single-select — typeahead filtering, grouping, keyboard navigation, an optional create-on-the-fly row, and a loading state, with no Radix or cmdk.",
+    code: `function Demo() {
+  const [value, setValue] = useState("next")
+  const frameworks = [
+    { value: "next", label: "Next.js", description: "The React framework for the web", group: "Full-stack" },
+    { value: "remix", label: "Remix", description: "Web standards, nested routes", group: "Full-stack" },
+    { value: "astro", label: "Astro", description: "Content-driven, islands", group: "Static" },
+    { value: "vite", label: "Vite", description: "Instant dev server", group: "Build tools" },
+    { value: "webpack", label: "webpack", description: "The battle-tested bundler", group: "Build tools" },
+  ]
+  return (
+    <div className="w-72">
+      <Combobox
+        options={frameworks}
+        value={value}
+        onValueChange={setValue}
+        placeholder="Pick a framework"
+        searchPlaceholder="Search frameworks…"
+        clearable
+      />
+    </div>
+  )
+}
+render(<Demo />)`,
+    usage:
+      "No Radix, no cmdk — pass an array of options and the Combobox handles the rest: case-insensitive typeahead (add keywords for extra match terms), group headings, and the full ARIA combobox keyboard pattern (↑/↓ to move, Home/End to jump, Enter to pick, Esc to close). The dropdown is portal-positioned and flips up automatically when there's no room below. Opt into clearable for a reset ×, creatable + onCreate for an inline “Create …” row, and loading for a spinner while you fetch. Works controlled (value + onValueChange) or uncontrolled (defaultValue), and drops a hidden input when you pass name.",
+    examples: [
+      {
+        title: "Create on the fly",
+        description: "Type a value that isn't in the list and press Enter to add it.",
+        code: `function Demo() {
+  const [options, setOptions] = useState([
+    { value: "react", label: "React" },
+    { value: "vue", label: "Vue" },
+    { value: "svelte", label: "Svelte" },
+  ])
+  const [value, setValue] = useState("")
+  return (
+    <div className="w-72">
+      <Combobox
+        options={options}
+        value={value}
+        onValueChange={setValue}
+        creatable
+        onCreate={(input) => {
+          const opt = { value: input.toLowerCase(), label: input }
+          setOptions((o) => [...o, opt])
+          setValue(opt.value)
+        }}
+        placeholder="Pick or create a tag"
+      />
+    </div>
+  )
+}
+render(<Demo />)`,
+      },
+      {
+        title: "Async loading state",
+        description: "Show a spinner while options are being fetched.",
+        code: `function Demo() {
+  const [loading, setLoading] = useState(false)
+  const [options, setOptions] = useState([])
+  const load = () => {
+    setLoading(true)
+    setOptions([])
+    setTimeout(() => {
+      setOptions([
+        { value: "ada", label: "Ada Lovelace" },
+        { value: "alan", label: "Alan Turing" },
+        { value: "grace", label: "Grace Hopper" },
+      ])
+      setLoading(false)
+    }, 1200)
+  }
+  return (
+    <div className="flex w-72 flex-col gap-3">
+      <Button size="sm" variant="outline" onClick={load}>Simulate fetch</Button>
+      <Combobox options={options} loading={loading} placeholder="Load people…" />
+    </div>
+  )
+}
+render(<Demo />)`,
+      },
+    ],
+  },
+  {
+    slug: "multi-select",
+    title: "Multi Select",
+    badge: "new",
+    description:
+      "A searchable multi-select with inline chips — the component shadcn never shipped. Type to filter, Enter to toggle, Backspace to peel off the last chip, plus Select all, a +N more overflow collapse, and creatable tags.",
+    code: `function Demo() {
+  const [value, setValue] = useState(["react", "ts"])
+  const skills = [
+    { value: "react", label: "React", group: "Frontend" },
+    { value: "vue", label: "Vue", group: "Frontend" },
+    { value: "svelte", label: "Svelte", group: "Frontend" },
+    { value: "node", label: "Node.js", group: "Backend" },
+    { value: "go", label: "Go", group: "Backend" },
+    { value: "rust", label: "Rust", group: "Backend" },
+    { value: "ts", label: "TypeScript", group: "Languages" },
+    { value: "py", label: "Python", group: "Languages" },
+  ]
+  return (
+    <div className="w-80">
+      <MultiSelect
+        options={skills}
+        value={value}
+        onValueChange={setValue}
+        placeholder="Add skills…"
+        maxDisplay={3}
+      />
+    </div>
+  )
+}
+render(<Demo />)`,
+    usage:
+      "Selected values live as removable chips right inside the control. Type to filter, Enter to toggle the highlighted option, and Backspace on an empty search peels off the last chip. Use maxDisplay to collapse extra chips into a +N more badge, maxSelected to cap choices (with a live counter), and showSelectAll for a header toggle. Group options with group, add keywords for search, and enable creatable + onCreate for ad-hoc tags. The dropdown is a self-contained, portal-positioned panel — no Radix. Controlled via value + onValueChange or uncontrolled via defaultValue.",
+    examples: [
+      {
+        title: "Capped selection",
+        description: "Limit how many options can be chosen — the counter and Select all adapt.",
+        code: `function Demo() {
+  const [value, setValue] = useState(["email"])
+  const channels = [
+    { value: "email", label: "Email" },
+    { value: "sms", label: "SMS" },
+    { value: "push", label: "Push" },
+    { value: "slack", label: "Slack" },
+    { value: "webhook", label: "Webhook" },
+  ]
+  return (
+    <div className="w-80">
+      <MultiSelect
+        options={channels}
+        value={value}
+        onValueChange={setValue}
+        maxSelected={3}
+        placeholder="Up to 3 channels"
+      />
+    </div>
+  )
+}
+render(<Demo />)`,
+      },
+      {
+        title: "Creatable tags",
+        description: "Type a new label and add it as a fresh chip on the fly.",
+        code: `function Demo() {
+  const [options, setOptions] = useState([
+    { value: "bug", label: "bug" },
+    { value: "feature", label: "feature" },
+    { value: "docs", label: "docs" },
+  ])
+  const [value, setValue] = useState(["bug"])
+  return (
+    <div className="w-80">
+      <MultiSelect
+        options={options}
+        value={value}
+        onValueChange={setValue}
+        creatable
+        onCreate={(input) => {
+          const opt = { value: input.toLowerCase(), label: input }
+          setOptions((o) => [...o, opt])
+          setValue((v) => [...v, opt.value])
+        }}
+        placeholder="Label this issue…"
+      />
+    </div>
+  )
+}
+render(<Demo />)`,
+      },
+    ],
+  },
+  {
     slug: "tabs",
     title: "Tabs",
     description: "Layered sections of content with a sliding indicator.",
@@ -419,6 +600,91 @@ render(<Demo />)`,
     <Alert variant="destructive"><div><AlertTitle>Error</AlertTitle><AlertDescription>Something went wrong.</AlertDescription></div></Alert>
   </div>
 )`,
+      },
+    ],
+  },
+  {
+    slug: "toast",
+    title: "Toast",
+    badge: "new",
+    description:
+      "Imperative, Sonner-style toasts — call toast() from anywhere, no context wiring. A collapsed peek stack expands on hover, toasts pause on hover and swipe to dismiss, and toast.promise wires loading → success/error automatically.",
+    code: `function Demo() {
+  return (
+    <div className="flex flex-wrap gap-2">
+      <Toaster richColors closeButton />
+      <Button size="sm" onClick={() => toast("Event created", { description: "Sunday, Dec 3 at 9:00 AM" })}>
+        Show toast
+      </Button>
+      <Button size="sm" variant="outline" onClick={() => toast.success("Changes saved")}>Success</Button>
+      <Button size="sm" variant="outline" onClick={() => toast.error("Something went wrong")}>Error</Button>
+      <Button size="sm" variant="outline" onClick={() => toast.warning("Low on storage")}>Warning</Button>
+      <Button size="sm" variant="outline" onClick={() => toast.info("A new version is available")}>Info</Button>
+    </div>
+  )
+}
+render(<Demo />)`,
+    usage:
+      "Drop a single <Toaster /> at your app root, then call the imperative API from anywhere — no provider, no context. The store is a singleton read through useSyncExternalStore, so toast(), toast.success/error/warning/info/loading, toast.custom (arbitrary JSX), and toast.promise (loading that resolves to success or error) all work from event handlers, effects, or plain functions. Pass an id to update a toast in place. Each toast takes a description, an action and a cancel button, and a duration (Infinity to persist). The stack shows as a collapsed peek that expands on hover, auto-dismiss pauses while hovered, and toasts can be swiped away. Configure the <Toaster /> with position, richColors, closeButton, expand, visibleToasts, gap, offset, and width.",
+    examples: [
+      {
+        title: "Promise toasts",
+        description: "One call shows a loading toast, then swaps to success or error when the promise settles.",
+        code: `function Demo() {
+  const run = () => {
+    const upload = new Promise((resolve, reject) =>
+      setTimeout(() => (Math.random() > 0.3 ? resolve({ name: "report.pdf" }) : reject()), 1800),
+    )
+    toast.promise(upload, {
+      loading: "Uploading…",
+      success: (data) => data.name + " uploaded",
+      error: "Upload failed — try again",
+    })
+  }
+  return (
+    <div>
+      <Toaster />
+      <Button size="sm" onClick={run}>Upload file</Button>
+    </div>
+  )
+}
+render(<Demo />)`,
+      },
+      {
+        title: "Action & undo",
+        description: "Attach a primary action — perfect for an undoable, destructive step.",
+        code: `function Demo() {
+  const remove = () =>
+    toast.warning("File moved to trash", {
+      description: "You can still get it back.",
+      action: { label: "Undo", onClick: () => toast.success("File restored") },
+    })
+  return (
+    <div>
+      <Toaster />
+      <Button size="sm" variant="outline" onClick={remove}>Delete with undo</Button>
+    </div>
+  )
+}
+render(<Demo />)`,
+      },
+      {
+        title: "Update in place",
+        description: "Reuse an id to morph one toast through several states instead of stacking new ones.",
+        code: `function Demo() {
+  const run = () => {
+    const id = toast.loading("Connecting…")
+    setTimeout(() => toast.loading("Authenticating…", { id }), 900)
+    setTimeout(() => toast.success("Connected", { id, duration: 3000 }), 1800)
+  }
+  return (
+    <div>
+      <Toaster />
+      <Button size="sm" onClick={run}>Connect</Button>
+    </div>
+  )
+}
+render(<Demo />)`,
       },
     ],
   },
@@ -691,6 +957,78 @@ render(<Demo />)`,
     ],
   },
   {
+    slug: "date-picker",
+    title: "Date Picker",
+    badge: "new",
+    description:
+      "A polished date field — a formatted trigger wired to the dependency-free Calendar in a popover. Single or range mode, dual-month panels, quick-pick presets, colour-coded markers, a clearable value, and native form support.",
+    code: `function Demo() {
+  const [date, setDate] = useState()
+  return (
+    <div className="w-64">
+      <DatePicker value={date} onChange={setDate} placeholder="Pick a date" />
+    </div>
+  )
+}
+render(<Demo />)`,
+    usage:
+      "Built on the self-contained Calendar + Popover — native Date + Intl, no react-day-picker or date-fns. Set mode to single or range (range defaults to two side-by-side months). The trigger label is formatted with Intl.DateTimeFormat — tune it with formatOptions + locale, or pass a fully custom format function. Bound the window with fromDate / toDate, grey out days with disabledDate, drop event dots with markers, and add one-click ranges with presets. clearable shows a reset ×; closeOnSelect closes once a (complete) selection is made. Works controlled (value + onChange) or uncontrolled (defaultValue), and emits hidden inputs when you pass name (name.from / name.to in range mode).",
+    examples: [
+      {
+        title: "Range with presets",
+        description: "Two months side by side, plus a rail of one-click shortcuts.",
+        code: `function Demo() {
+  const [range, setRange] = useState()
+  const days = (n) => {
+    const to = new Date()
+    const from = new Date()
+    from.setDate(to.getDate() - (n - 1))
+    return { from, to }
+  }
+  return (
+    <div className="w-72">
+      <DatePicker
+        mode="range"
+        value={range}
+        onChange={setRange}
+        placeholder="Pick a range"
+        presets={[
+          { label: "Last 7 days", value: () => days(7) },
+          { label: "Last 30 days", value: () => days(30) },
+        ]}
+      />
+    </div>
+  )
+}
+render(<Demo />)`,
+      },
+      {
+        title: "Bounded & custom format",
+        description: "Weekdays only for the next 60 days, with a long-form label.",
+        code: `function Demo() {
+  const [date, setDate] = useState()
+  const today = new Date()
+  const in60 = new Date()
+  in60.setDate(today.getDate() + 60)
+  return (
+    <div className="w-64">
+      <DatePicker
+        value={date}
+        onChange={setDate}
+        fromDate={today}
+        toDate={in60}
+        disabledDate={(d) => d.getDay() === 0 || d.getDay() === 6}
+        formatOptions={{ weekday: "short", month: "long", day: "numeric" }}
+        placeholder="Weekdays only"
+      />
+    </div>
+  )
+}
+render(<Demo />)`,
+      },
+    ],
+  },
+  {
     slug: "toggle",
     title: "Toggle",
     description: "A button that stays pressed on.",
@@ -740,6 +1078,73 @@ render(<Demo />)`,
     </BreadcrumbList>
   </Breadcrumb>
 )`,
+  },
+  {
+    slug: "pagination",
+    title: "Pagination",
+    badge: "new",
+    description:
+      "A batteries-included, stateful pagination control — give it a total and it computes the page count, the ellipsis-truncated range, the summary line, and the disabled edge states. The active page is an accent pill that glides between numbers.",
+    code: `function Demo() {
+  const [page, setPage] = useState(3)
+  return (
+    <div className="w-full max-w-md">
+      <Pagination
+        page={page}
+        onPageChange={setPage}
+        total={240}
+        pageSize={10}
+        size="sm"
+        showSummary
+        showProgress
+      />
+    </div>
+  )
+}
+render(<Demo />)`,
+    usage:
+      "Unlike a bag of static links, this is stateful: pass total (and optionally pageSize) and it derives the page count, the ellipsis-truncated range, and the “Showing 1–10 of 240” summary — or set pageCount explicitly. Every control lives inside one raised “paper rail” so the pager reads as a single object, and the active page is an accent pill that glides between numbers via Motion's layoutId. Opt into showSummary, showJumper (a go-to-page input), and pageSizeOptions + onPageSizeChange for an instant rows-per-page picker; flip on showProgress for a slim accent meter that tracks page ÷ count. Tune density with siblingCount / boundaryCount, toggle first/last jumps with showEdges, and pick a size. Controlled via page + onPageChange or uncontrolled via defaultPage. The exported paginationRange helper returns the raw item array if you want to render your own markup.",
+    examples: [
+      {
+        title: "Data-table controls",
+        description: "Summary, a rows-per-page picker, and a go-to-page jumper — everything a table footer needs.",
+        code: `function Demo() {
+  const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(20)
+  return (
+    <Pagination
+      page={page}
+      onPageChange={setPage}
+      total={1000}
+      pageSize={pageSize}
+      onPageSizeChange={setPageSize}
+      pageSizeOptions={[10, 20, 50, 100]}
+      showSummary
+      showJumper
+    />
+  )
+}
+render(<Demo />)`,
+      },
+      {
+        title: "Compact, more siblings",
+        description: "Small size, no edge jumps, two siblings each side of the current page.",
+        code: `function Demo() {
+  const [page, setPage] = useState(5)
+  return (
+    <Pagination
+      page={page}
+      onPageChange={setPage}
+      pageCount={10}
+      size="sm"
+      showEdges={false}
+      siblingCount={2}
+    />
+  )
+}
+render(<Demo />)`,
+      },
+    ],
   },
   {
     slug: "kbd",

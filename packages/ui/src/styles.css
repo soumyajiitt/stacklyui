@@ -664,6 +664,20 @@
   100% { transform: translateX(100%); }
 }
 
+/* Toast auto-dismiss progress bar — shrinks left→right over the toast's life,
+ * and pauses (via animation-play-state) while the stack is hovered. */
+.sui-toast-progress {
+  transform-origin: left center;
+  animation: sui-toast-progress var(--sui-toast-duration, 4000ms) linear forwards;
+}
+.sui-toast-progress[data-paused="true"] {
+  animation-play-state: paused;
+}
+@keyframes sui-toast-progress {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sui-overlay,
   .sui-pop,

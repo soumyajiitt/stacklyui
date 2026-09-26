@@ -79,6 +79,12 @@ import {
   SheetHeader,
   SheetTitle,
   SheetDescription,
+  Combobox,
+  MultiSelect,
+  DatePicker,
+  Pagination,
+  Toaster,
+  toast,
 } from "@stacklyui/ui";
 import { PRIMITIVES } from "@/lib/primitives-data";
 import { NewBadge } from "@/components/new-badge";
@@ -254,6 +260,39 @@ export function PrimitivesGallery() {
               </SelectContent>
             </Select>
           </Stage>
+          <Stage name="Combobox" slug="combobox" badge="new">
+            <div className="w-[14rem]">
+              <Combobox
+                defaultValue="next"
+                clearable
+                options={[
+                  { value: "next", label: "Next.js", group: "Meta frameworks" },
+                  { value: "remix", label: "Remix", group: "Meta frameworks" },
+                  { value: "astro", label: "Astro", group: "Meta frameworks" },
+                  { value: "vue", label: "Vue", group: "Libraries" },
+                  { value: "svelte", label: "Svelte", group: "Libraries" },
+                  { value: "solid", label: "Solid", group: "Libraries" },
+                ]}
+              />
+            </div>
+          </Stage>
+
+          <Stage name="Multi Select" slug="multi-select" badge="new">
+            <div className="w-[15rem]">
+              <MultiSelect
+                defaultValue={["react", "svelte"]}
+                maxDisplay={2}
+                options={[
+                  { value: "react", label: "React" },
+                  { value: "vue", label: "Vue" },
+                  { value: "svelte", label: "Svelte" },
+                  { value: "solid", label: "Solid" },
+                  { value: "angular", label: "Angular" },
+                ]}
+              />
+            </div>
+          </Stage>
+
           <Stage name="Calendar" slug="calendar" badge="new" span="sm:col-span-2 lg:col-span-1">
             <Calendar
               mode="single"
@@ -269,6 +308,12 @@ export function PrimitivesGallery() {
                       : undefined
               }
             />
+          </Stage>
+
+          <Stage name="Date Picker" slug="date-picker" badge="new">
+            <div className="w-[15rem]">
+              <DatePicker defaultValue={new Date()} clearable />
+            </div>
           </Stage>
         </Group>
 
@@ -499,6 +544,50 @@ export function PrimitivesGallery() {
               </BreadcrumbList>
             </Breadcrumb>
           </Stage>
+
+          <Stage name="Pagination" slug="pagination" badge="new" span="sm:col-span-2">
+            <div className="w-full max-w-md">
+              <Pagination
+                defaultPage={3}
+                total={50}
+                pageSize={10}
+                size="sm"
+                showEdges={false}
+                showSummary
+                showProgress
+              />
+            </div>
+          </Stage>
+
+          <Stage name="Toast" slug="toast" badge="new">
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() =>
+                  toast.success("Saved!", { description: "Your changes are live." })
+                }
+              >
+                Success
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => toast("Heads up", { description: "Something just happened." })}
+              >
+                Message
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() =>
+                  toast.error("Failed", { description: "Please try again." })
+                }
+              >
+                Error
+              </Button>
+            </div>
+          </Stage>
         </Group>
       </TooltipProvider>
 
@@ -527,6 +616,8 @@ export function PrimitivesGallery() {
           ))}
         </div>
       </div>
+
+      <Toaster richColors closeButton />
     </div>
   );
 }

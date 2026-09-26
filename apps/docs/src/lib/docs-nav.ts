@@ -44,8 +44,11 @@ export const DOCS_NAV: DocSection[] = [
       { href: "/docs/components/switch", label: "Switch" },
       { href: "/docs/components/radio-group", label: "Radio Group" },
       { href: "/docs/components/select", label: "Select" },
+      { href: "/docs/components/combobox", label: "Combobox", badge: "new" },
+      { href: "/docs/components/multi-select", label: "Multi Select", badge: "new" },
       { href: "/docs/components/slider", label: "Slider" },
       { href: "/docs/components/calendar", label: "Calendar", badge: "new" },
+      { href: "/docs/components/date-picker", label: "Date Picker", badge: "new" },
       { href: "/docs/components/toggle", label: "Toggle" },
       { href: "/docs/components/toggle-group", label: "Toggle Group" },
     ],
@@ -63,6 +66,7 @@ export const DOCS_NAV: DocSection[] = [
       { href: "/docs/components/spinner", label: "Spinner" },
       { href: "/docs/components/kbd", label: "Kbd" },
       { href: "/docs/components/breadcrumb", label: "Breadcrumb" },
+      { href: "/docs/components/pagination", label: "Pagination", badge: "new" },
     ],
   },
   {
@@ -79,6 +83,7 @@ export const DOCS_NAV: DocSection[] = [
       { href: "/docs/components/accordion", label: "Accordion" },
       { href: "/docs/components/collapsible", label: "Collapsible" },
       { href: "/docs/components/alert", label: "Alert" },
+      { href: "/docs/components/toast", label: "Toast", badge: "new" },
     ],
   },
 ];
