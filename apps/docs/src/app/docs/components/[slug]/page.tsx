@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ComponentPlayground } from "@/components/component-playground";
 import { CommandBlock } from "@/components/command-block";
+import { NewBadge } from "@/components/new-badge";
 import { installCommands, registryCommands } from "@/lib/pm-commands";
 import {
   PRIMITIVES,
@@ -57,7 +58,10 @@ export default async function PrimitiveDocPage({
           <span>/</span>
           <span className="text-fg">{doc.title}</span>
         </div>
-        <h1 className="display mt-4 text-5xl sm:text-6xl">{doc.title}</h1>
+        <h1 className="display mt-4 flex flex-wrap items-center gap-3 text-5xl sm:text-6xl">
+          {doc.title}
+          {doc.badge === "new" ? <NewBadge className="!text-[0.7rem]" /> : null}
+        </h1>
         <p className="mt-4 max-w-2xl border-l-2 border-accent pl-5 text-lg text-muted">
           {doc.description}
         </p>

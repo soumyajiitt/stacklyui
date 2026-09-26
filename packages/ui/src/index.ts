@@ -158,6 +158,15 @@ export {
 export { AspectRatio } from "./components/aspect-ratio";
 export { Progress, type ProgressProps } from "./components/progress";
 export { Slider, type SliderProps } from "./components/slider";
+export {
+  Calendar,
+  type CalendarProps,
+  type CalendarMode,
+  type CalendarValue,
+  type CalendarMarker,
+  type CalendarPreset,
+  type DateRange,
+} from "./components/calendar";
 export { Toggle, type ToggleProps } from "./components/toggle";
 export { ToggleGroup, ToggleGroupItem } from "./components/toggle-group";
 export {

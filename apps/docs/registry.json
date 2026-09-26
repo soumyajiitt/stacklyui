@@ -427,6 +427,15 @@
       "files": [{ "path": "../../packages/ui/src/components/slider.tsx", "type": "registry:ui", "target": "components/stackly/slider.tsx" }]
     },
     {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Dependency-free date picker — single/multiple/range, sliding month transitions, month & year quick-jump, full keyboard grid.",
+      "dependencies": ["motion"],
+      "registryDependencies": ["cn", "use-reduced-motion"],
+      "files": [{ "path": "../../packages/ui/src/components/calendar.tsx", "type": "registry:ui", "target": "components/stackly/calendar.tsx" }]
+    },
+    {
       "name": "toggle",
       "type": "registry:ui",
       "title": "Toggle",

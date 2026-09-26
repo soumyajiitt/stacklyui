@@ -93,7 +93,10 @@ export function ComponentPlayground({
 
         {/* Split: editor | preview */}
         <div className="grid lg:grid-cols-2">
-          <div className="relative max-h-[32rem] overflow-auto border-b border-border bg-[oklch(0.97_0.008_75)] font-mono text-[13px] leading-relaxed lg:border-b-0 lg:border-r dark:bg-[oklch(0.16_0.014_52)]">
+          <div
+            data-lenis-prevent
+            className="relative max-h-[32rem] overflow-auto border-b border-border bg-[oklch(0.97_0.008_75)] font-mono text-[13px] leading-relaxed lg:border-b-0 lg:border-r dark:bg-[oklch(0.16_0.014_52)]"
+          >
             <LiveEditor
               onChange={setCode}
               className="sui-live-editor min-h-[16rem] !bg-transparent"

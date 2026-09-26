@@ -15,6 +15,8 @@ export interface PrimitiveDoc {
   usage?: string;
   /** Variant/permutation demos, each its own editable playground. */
   examples?: PrimitiveExample[];
+  /** Flag freshly-added components so the gallery/index can badge them. */
+  badge?: "new";
 }
 
 export const PRIMITIVES: PrimitiveDoc[] = [
@@ -543,6 +545,148 @@ render(<Demo />)`,
     <Slider defaultValue={[25, 75]} max={100} step={1} />
   </div>
 )`,
+      },
+    ],
+  },
+  {
+    slug: "calendar",
+    title: "Calendar",
+    badge: "new",
+    description:
+      "A dependency-free date picker — single, multiple, or range selection with sliding month transitions, a month/year quick-jump, event markers, and preset shortcuts.",
+    code: `function Demo() {
+  const [date, setDate] = useState(new Date())
+  const marks = { 12: "accent", 18: "accent-2", 24: "accent-3" }
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <Calendar
+        mode="single"
+        selected={date}
+        onSelect={setDate}
+        showToday
+        markers={(d) => marks[d.getDate()]}
+      />
+      <p className="text-sm text-muted">
+        {date ? date.toLocaleDateString(undefined, { dateStyle: "full" }) : "Pick a day"}
+      </p>
+    </div>
+  )
+}
+render(<Demo />)`,
+    usage:
+      "No react-day-picker, no date-fns — just native Date + Intl. Set mode to single, multiple, or range. Click the month or year in the header to zoom out and jump across years. Use markers to drop coloured event dots on any day, presets for one-click ranges, and showToday for a Today/Clear footer. Arrow keys move day-by-day, Home/End jump to week edges, PageUp/PageDown change months (hold Shift for years).",
+    examples: [
+      {
+        title: "Range across two months",
+        description: "Drag from one day to another — hover previews the span before you commit.",
+        code: `function Demo() {
+  const [range, setRange] = useState({ from: undefined, to: undefined })
+  return (
+    <Calendar
+      mode="range"
+      numberOfMonths={2}
+      selected={range}
+      onSelect={setRange}
+    />
+  )
+}
+render(<Demo />)`,
+      },
+      {
+        title: "Multiple days",
+        description: "Toggle any number of individual days on and off.",
+        code: `function Demo() {
+  const [days, setDays] = useState([])
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <Calendar mode="multiple" selected={days} onSelect={setDays} />
+      <p className="text-sm text-muted">{days.length} day(s) selected</p>
+    </div>
+  )
+}
+render(<Demo />)`,
+      },
+      {
+        title: "Week numbers & Monday start",
+        description: "ISO week column, weeks starting on Monday, no outside days.",
+        code: `render(
+  <Calendar
+    weekStartsOn={1}
+    showWeekNumbers
+    showOutsideDays={false}
+  />
+)`,
+      },
+      {
+        title: "Bounded & disabled days",
+        description: "Limit the window with fromDate/toDate and grey out weekends via disabled.",
+        code: `function Demo() {
+  const today = new Date()
+  const in30 = new Date()
+  in30.setDate(today.getDate() + 30)
+  return (
+    <Calendar
+      mode="single"
+      fromDate={today}
+      toDate={in30}
+      disabled={(d) => d.getDay() === 0 || d.getDay() === 6}
+    />
+  )
+}
+render(<Demo />)`,
+      },
+      {
+        title: "Range with quick-pick presets",
+        description: "A side rail of one-click shortcuts — the range picker analytics dashboards ship.",
+        code: `function Demo() {
+  const [range, setRange] = useState({ from: undefined, to: undefined })
+  const days = (n) => {
+    const to = new Date()
+    const from = new Date()
+    from.setDate(to.getDate() - (n - 1))
+    return { from, to }
+  }
+  const monthToDate = () => {
+    const to = new Date()
+    return { from: new Date(to.getFullYear(), to.getMonth(), 1), to }
+  }
+  return (
+    <Calendar
+      mode="range"
+      numberOfMonths={2}
+      selected={range}
+      onSelect={setRange}
+      showToday
+      presets={[
+        { label: "Today", value: () => ({ from: new Date(), to: new Date() }) },
+        { label: "Last 7 days", value: () => days(7) },
+        { label: "Last 30 days", value: () => days(30) },
+        { label: "Month to date", value: monthToDate },
+      ]}
+    />
+  )
+}
+render(<Demo />)`,
+      },
+      {
+        title: "Event markers",
+        description: "Drop up to three coloured dots on any day — meetings, deadlines, availability.",
+        code: `function Demo() {
+  const events = {
+    9: ["accent"],
+    14: ["accent", "accent-2"],
+    18: ["destructive"],
+    23: ["accent-3", "accent", "accent-2"],
+  }
+  return (
+    <Calendar
+      mode="single"
+      defaultSelected={new Date()}
+      markers={(d) => events[d.getDate()]}
+    />
+  )
+}
+render(<Demo />)`,
       },
     ],
   },

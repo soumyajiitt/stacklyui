@@ -69,6 +69,7 @@ export function ComponentPreview({
       ) : (
         <div
           role="tabpanel"
+          data-lenis-prevent
           className="sui-code max-h-[32rem] overflow-auto p-4 text-[13px] leading-relaxed [&_pre]:!bg-transparent [&_code]:font-mono"
           dangerouslySetInnerHTML={{ __html: codeHtml }}
         />

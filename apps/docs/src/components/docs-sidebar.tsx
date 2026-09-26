@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { DOCS_NAV } from "@/lib/docs-nav";
+import { NewBadge } from "@/components/new-badge";
 import { cn } from "@/lib/utils";
 
 export function DocsSidebar() {
@@ -25,7 +26,7 @@ export function DocsSidebar() {
                     href={link.href}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "relative block rounded-lg px-3 py-1.5 text-sm transition-colors",
+                      "relative flex items-center justify-between gap-2 rounded-lg px-3 py-1.5 text-sm transition-colors",
                       active
                         ? "bg-surface font-medium text-fg"
                         : "text-muted hover:bg-surface/50 hover:text-fg",
@@ -34,7 +35,8 @@ export function DocsSidebar() {
                     {active ? (
                       <span className="absolute inset-y-1 -left-1 w-0.5 rounded-full bg-accent" />
                     ) : null}
-                    {link.label}
+                    <span>{link.label}</span>
+                    {link.badge === "new" ? <NewBadge /> : null}
                   </Link>
                 </li>
               );

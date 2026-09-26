@@ -1,6 +1,8 @@
 export interface DocLink {
   href: string;
   label: string;
+  /** Flag freshly-added entries so the nav can badge them. */
+  badge?: "new";
 }
 
 export interface DocSection {
@@ -43,6 +45,7 @@ export const DOCS_NAV: DocSection[] = [
       { href: "/docs/components/radio-group", label: "Radio Group" },
       { href: "/docs/components/select", label: "Select" },
       { href: "/docs/components/slider", label: "Slider" },
+      { href: "/docs/components/calendar", label: "Calendar", badge: "new" },
       { href: "/docs/components/toggle", label: "Toggle" },
       { href: "/docs/components/toggle-group", label: "Toggle Group" },
     ],
