@@ -275,7 +275,7 @@ export function StickyStack() {
     <section className="sui-invert relative bg-bg py-28 text-fg">
       <div className="mx-auto max-w-[86rem] px-5 sm:px-8">
         <SectionHeading
-          index="005"
+          index="007"
           title="Why it's different"
           description="Four commitments that set StacklyUI apart from the flashy-but-fragile alternatives — each one visible, not just claimed."
         />

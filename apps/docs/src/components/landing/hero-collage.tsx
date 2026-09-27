@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useMotionValue,
@@ -21,15 +21,22 @@ import {
   Switch,
 } from "@stacklyui/ui";
 
+interface HeroCollageProps {
+  /** Master motion switch, owned by the hero. */
+  on: boolean;
+  onToggle: (v: boolean) => void;
+}
+
 /**
  * The hero's interactive centerpiece: a cluster of real StacklyUI components
  * arranged like a floating dashboard. Layers drift with the pointer at
- * different depths (parallax), so it feels alive without a single re-render on
- * move. Falls back to a static cluster under reduced motion.
+ * different depths and bob gently on their own — all gated behind the "Motion"
+ * switch, so flipping it off freezes the whole scene (reduced-motion users get
+ * the frozen version by default).
  */
-export function HeroCollage() {
+export function HeroCollage({ on, onToggle }: HeroCollageProps) {
   const reduced = useReducedMotion();
-  const [on, setOn] = useState(true);
+  const active = on && !reduced;
   const ref = useRef<HTMLDivElement>(null);
 
   const mx = useMotionValue(0);
@@ -45,8 +52,19 @@ export function HeroCollage() {
   const y3 = useTransform(sy, (v) => v * 42);
   const rotate = useTransform(sx, (v) => v * 5);
 
+  // Live "reach" metric, ticking up only while motion is on.
+  const [reach, setReach] = useState(128480);
+  useEffect(() => {
+    if (!active) return;
+    const id = setInterval(
+      () => setReach((r) => r + Math.floor(20 + Math.random() * 180)),
+      2400,
+    );
+    return () => clearInterval(id);
+  }, [active]);
+
   function handleMove(e: React.MouseEvent) {
-    if (reduced) return;
+    if (!active) return;
     const r = ref.current?.getBoundingClientRect();
     if (!r) return;
     mx.set((e.clientX - r.left) / r.width - 0.5);
@@ -70,96 +88,124 @@ export function HeroCollage() {
         className="pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/20 blur-[80px]"
       />
 
-      {/* Base "dashboard" card */}
+      {/* Base "dashboard" card — parallax layer + gentle idle bob */}
       <motion.div
         style={{ x: x1, y: y1, rotate }}
         className="absolute left-1/2 top-1/2 w-[19rem] -translate-x-1/2 -translate-y-1/2"
       >
-        <SpotlightCard className="sui-paper rounded-2xl border-2 border-border-strong bg-card p-5">
-          <div className="flex items-center gap-3">
-            <Avatar>
-              <AvatarFallback>SB</AvatarFallback>
-            </Avatar>
-            <div className="min-w-0">
-              <p className="truncate text-sm font-semibold text-fg">Aria Sync</p>
-              <p className="truncate text-xs text-muted">Design system</p>
+        <motion.div
+          animate={{ y: active ? [0, -6, 0] : 0 }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <SpotlightCard className="sui-paper rounded-2xl border-2 border-border-strong bg-card p-5">
+            <div className="flex items-center gap-3">
+              <Avatar>
+                <AvatarFallback>SB</AvatarFallback>
+              </Avatar>
+              <div className="min-w-0">
+                <p className="truncate text-sm font-semibold text-fg">Aria Sync</p>
+                <p className="truncate text-xs text-muted">Design system</p>
+              </div>
+              <Badge variant="solid" className="ml-auto">
+                Pro
+              </Badge>
             </div>
-            <Badge variant="solid" className="ml-auto">
-              Pro
-            </Badge>
-          </div>
 
-          <div className="mt-5">
-            <span className="eyebrow !text-[0.6rem]">Monthly reach</span>
-            <div className="display mt-1 text-4xl">
-              <NumberTicker value={128480} />
+            <div className="mt-5">
+              <span className="eyebrow !text-[0.6rem]">Monthly reach</span>
+              <div className="display mt-1 text-4xl">
+                <NumberTicker value={reach} />
+              </div>
             </div>
-          </div>
 
-          <div className="mt-4 space-y-1.5">
-            <div className="flex justify-between text-xs text-muted">
-              <span>Adoption</span>
-              <span>72%</span>
+            <div className="mt-4 space-y-1.5">
+              <div className="flex justify-between text-xs text-muted">
+                <span>Adoption</span>
+                <span>72%</span>
+              </div>
+              <Progress value={72} />
             </div>
-            <Progress value={72} />
-          </div>
 
-          <Button size="sm" className="mt-5 w-full">
-            Upgrade plan
-          </Button>
-        </SpotlightCard>
+            <Button size="sm" className="mt-5 w-full">
+              Upgrade plan
+            </Button>
+          </SpotlightCard>
+        </motion.div>
       </motion.div>
 
-      {/* Floating: motion toggle (top-left) */}
-      <motion.div
-        style={{ x: x2, y: y2 }}
-        className="sui-paper-sm absolute left-0 top-8 flex items-center gap-2.5 rounded-xl border-2 border-border-strong bg-surface-strong px-3.5 py-2.5"
-      >
-        <Switch checked={on} onCheckedChange={setOn} />
-        <span className="text-xs font-medium text-fg">
-          {on ? "Motion on" : "Motion off"}
-        </span>
+      {/* Floating: the motion master switch (top-left) */}
+      <motion.div style={{ x: x2, y: y2 }} className="absolute left-0 top-8">
+        <motion.div
+          animate={{ y: active ? [0, -7, 0] : 0 }}
+          transition={{ duration: 4.4, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+          className="sui-paper-sm flex items-center gap-2.5 rounded-xl border-2 border-border-strong bg-surface-strong px-3.5 py-2.5"
+        >
+          <Switch checked={on} onCheckedChange={onToggle} aria-label="Toggle hero motion" />
+          <span className="text-xs font-medium text-fg">
+            {on ? "Motion on" : "Motion off"}
+          </span>
+        </motion.div>
       </motion.div>
 
-      {/* Floating: badges (bottom-right) */}
-      <motion.div
-        style={{ x: x2, y: y2 }}
-        className="sui-paper-sm absolute bottom-12 right-0 flex flex-col gap-2 rounded-xl border-2 border-border-strong bg-surface-strong p-3"
-      >
-        <div className="flex gap-1.5">
-          <Badge variant="success">Live</Badge>
-          <Badge variant="outline">v0.6</Badge>
-        </div>
-        <span className="eyebrow !text-[0.55rem]">32+ components</span>
+      {/* Floating: badges + live pulse (bottom-right) */}
+      <motion.div style={{ x: x2, y: y2 }} className="absolute bottom-12 right-0">
+        <motion.div
+          animate={{ y: active ? [0, -6, 0] : 0 }}
+          transition={{ duration: 4.8, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+          className="sui-paper-sm flex flex-col gap-2 rounded-xl border-2 border-border-strong bg-surface-strong p-3"
+        >
+          <div className="flex gap-1.5">
+            <Badge variant="success">Live</Badge>
+            <Badge variant="outline">v0.6</Badge>
+          </div>
+          <span className="flex items-center gap-1.5">
+            <motion.span
+              aria-hidden
+              animate={{ opacity: active ? [1, 0.3, 1] : 1, scale: active ? [1, 0.8, 1] : 1 }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+              className="h-1.5 w-1.5 rounded-full bg-accent"
+            />
+            <span className="eyebrow !text-[0.55rem]">32+ components</span>
+          </span>
+        </motion.div>
       </motion.div>
 
       {/* Floating: shortcut (top-right) */}
-      <motion.div
-        style={{ x: x3, y: y3 }}
-        className="sui-paper-sm absolute right-4 top-0 flex items-center gap-1.5 rounded-xl border-2 border-border-strong bg-surface-strong px-3 py-2 text-xs text-muted"
-      >
-        <Kbd>⌘</Kbd>
-        <Kbd>K</Kbd>
-        <span className="ml-0.5">Search</span>
+      <motion.div style={{ x: x3, y: y3 }} className="absolute right-4 top-0">
+        <motion.div
+          animate={{ y: active ? [0, -8, 0] : 0 }}
+          transition={{ duration: 4.2, repeat: Infinity, ease: "easeInOut", delay: 0.15 }}
+          className="sui-paper-sm flex items-center gap-1.5 rounded-xl border-2 border-border-strong bg-surface-strong px-3 py-2 text-xs text-muted"
+        >
+          <Kbd>⌘</Kbd>
+          <Kbd>K</Kbd>
+          <span className="ml-0.5">Search</span>
+        </motion.div>
       </motion.div>
 
       {/* Floating: rating pill (bottom-left) */}
-      <motion.div
-        style={{ x: x3, y: y3 }}
-        className="sui-paper-sm absolute bottom-2 left-6 flex items-center gap-2 rounded-full border-2 border-border-strong bg-accent px-3.5 py-2 text-white"
-      >
-        <span className="text-sm tracking-tight">★★★★★</span>
-        <span className="text-xs font-semibold">Loved by devs</span>
+      <motion.div style={{ x: x3, y: y3 }} className="absolute bottom-2 left-6">
+        <motion.div
+          animate={{ y: active ? [0, -8, 0] : 0 }}
+          transition={{ duration: 5.2, repeat: Infinity, ease: "easeInOut", delay: 0.9 }}
+          className="sui-paper-sm flex items-center gap-2 rounded-full border-2 border-border-strong bg-accent px-3.5 py-2 text-white"
+        >
+          <span className="text-sm tracking-tight">★★★★★</span>
+          <span className="text-xs font-semibold">Loved by devs</span>
+        </motion.div>
       </motion.div>
 
       {/* Floating: gradient tag (mid-right) */}
-      <motion.div
-        style={{ x: x3, y: y3 }}
-        className="sui-paper-sm absolute right-2 top-1/2 rounded-xl border-2 border-border-strong bg-card px-3 py-2"
-      >
-        <GradientText as="span" className="text-sm font-bold">
-          Aa
-        </GradientText>
+      <motion.div style={{ x: x3, y: y3 }} className="absolute right-2 top-1/2">
+        <motion.div
+          animate={{ y: active ? [0, -6, 0] : 0 }}
+          transition={{ duration: 4.6, repeat: Infinity, ease: "easeInOut", delay: 0.45 }}
+          className="sui-paper-sm rounded-xl border-2 border-border-strong bg-card px-3 py-2"
+        >
+          <GradientText as="span" className="text-sm font-bold">
+            Aa
+          </GradientText>
+        </motion.div>
       </motion.div>
     </div>
   );

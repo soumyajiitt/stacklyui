@@ -176,10 +176,10 @@ function LeadPanel() {
         aria-hidden
         className="display pointer-events-none absolute -left-3 -top-4 select-none text-[13rem] leading-[0.7] text-accent/[0.07] sm:text-[17rem]"
       >
-        003
+        004
       </span>
       <div className="relative">
-        <span className="eyebrow">[003] — Signature set</span>
+        <span className="eyebrow">[004] — Signature set</span>
         <h2 className="display mt-4 text-7xl leading-[0.9] sm:text-8xl lg:text-[6.5rem]">
           Scroll
           <br />
@@ -256,7 +256,7 @@ export function HorizontalShowcase() {
     return (
       <section className="py-24">
         <div className="mx-auto max-w-[86rem] px-5 sm:px-8">
-          <span className="eyebrow">[003] — Signature set</span>
+          <span className="eyebrow">[004] — Signature set</span>
           <h2 className="display mt-4 text-6xl">Signature set</h2>
         </div>
         <div className="mt-10 flex snap-x gap-6 overflow-x-auto px-5 pb-6 sm:px-8">

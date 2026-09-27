@@ -150,7 +150,7 @@ export function ComponentIndex() {
   return (
     <section className="mx-auto max-w-[86rem] px-5 py-28 sm:px-8">
       <SectionHeading
-        index="004"
+        index="005"
         title="The catalog"
         description="Signature building blocks for standout interfaces — grouped by what they do. Every one is animated, accessible, and yours to copy."
       />

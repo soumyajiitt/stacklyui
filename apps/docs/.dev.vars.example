@@ -1,0 +1,7 @@
+# Cloudflare Pages Function secrets for LOCAL dev, loaded by `wrangler pages dev`.
+# Copy this file to `.dev.vars` (gitignored) and fill in real values.
+# In production set these in the Pages dashboard → Settings → Variables instead.
+
+RESEND_API_KEY=re_your_key_here
+MAIL_TO=you@example.com
+MAIL_FROM=StacklyUI Ideas <ideas@dev.stacklyui.in>

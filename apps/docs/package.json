@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "registry:build": "shadcn build registry.json --output public/r"
+    "registry:build": "shadcn build registry.json --output public/r",
+    "preview": "pnpm build && wrangler pages dev out --compatibility-date=2024-11-01"
   },
   "dependencies": {
     "clsx": "2.1.1",
@@ -33,6 +34,7 @@
     "eslint-config-next": "15.5.4",
     "shadcn": "3.4.0",
     "tailwindcss": "4.1.13",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "wrangler": "4.142.0"
   }
 }

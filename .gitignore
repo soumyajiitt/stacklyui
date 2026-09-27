@@ -15,6 +15,7 @@ apps/docs/public/r
 .env
 .env.local
 .env*.local
+.dev.vars
 
 # logs
 *.log

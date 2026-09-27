@@ -1,6 +1,13 @@
 "use client";
 
 import { useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+  type MotionValue,
+} from "motion/react";
 import { AnimatedBeam, Reveal, SpotlightCard } from "@stacklyui/ui";
 import { SectionHeading } from "./section-heading";
 
@@ -46,6 +53,81 @@ const STEPS = [
   },
 ];
 
+function Step({
+  step,
+  index,
+  total,
+  progress,
+}: {
+  step: (typeof STEPS)[number];
+  index: number;
+  total: number;
+  progress: MotionValue<number>;
+}) {
+  const reduced = useReducedMotion();
+  const threshold = index / total;
+  // Marker pops as the scroll-fill line reaches it.
+  const scale = useTransform(progress, [threshold, threshold + 0.12], [0, 1]);
+  const opacity = useTransform(progress, [threshold - 0.05, threshold + 0.08], [0.4, 1]);
+
+  return (
+    <motion.li
+      className="relative"
+      style={reduced ? undefined : { opacity }}
+    >
+      {/* marker centered on the timeline */}
+      <span className="absolute -left-[2.4rem] top-1.5 flex h-4 w-4 items-center justify-center">
+        <span className="absolute inset-0 rounded-full border-2 border-border-strong bg-bg" />
+        <motion.span
+          aria-hidden
+          style={reduced ? { scale: 1 } : { scale }}
+          className="relative h-2 w-2 rounded-full bg-accent"
+        />
+      </span>
+      <div className="flex items-baseline gap-3">
+        <span className="display text-xl text-accent/40 sm:text-2xl">{step.no}</span>
+        <h3 className="display text-2xl sm:text-3xl">{step.title}</h3>
+      </div>
+      <p className="mt-1.5 max-w-sm leading-relaxed text-muted">{step.desc}</p>
+    </motion.li>
+  );
+}
+
+function Timeline() {
+  const reduced = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 80%", "end 55%"],
+  });
+
+  return (
+    <div ref={ref} className="relative pl-10">
+      {/* track + scroll-driven accent fill */}
+      <span
+        aria-hidden
+        className="absolute bottom-1 left-1 top-1 w-0.5 rounded bg-line"
+      />
+      <motion.span
+        aria-hidden
+        style={reduced ? { scaleY: 1 } : { scaleY: scrollYProgress }}
+        className="absolute bottom-1 left-1 top-1 w-0.5 origin-top rounded bg-accent"
+      />
+      <ol className="space-y-9">
+        {STEPS.map((step, i) => (
+          <Step
+            key={step.no}
+            step={step}
+            index={i}
+            total={STEPS.length}
+            progress={scrollYProgress}
+          />
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 export function Workflow() {
   const container = useRef<HTMLDivElement>(null);
   const install = useRef<HTMLDivElement>(null);
@@ -56,27 +138,15 @@ export function Workflow() {
   return (
     <section className="mx-auto max-w-[86rem] px-5 py-28 sm:px-8">
       <SectionHeading
-        index="006"
+        index="008"
         title="Ship in minutes"
         description="Add a component with one command or a single import. It arrives fully themed, animated, and accessible."
       />
 
       <div className="mt-16 grid items-center gap-12 lg:grid-cols-2">
         <Reveal direction="right">
-          <ol className="relative space-y-8 border-l border-line pl-8">
-            {STEPS.map((step) => (
-              <li key={step.no} className="relative">
-                <span className="absolute -left-12 flex h-8 w-8 items-center justify-center rounded-full border border-border-strong bg-surface font-mono text-xs text-accent">
-                  {step.no}
-                </span>
-                <h3 className="display text-2xl sm:text-3xl">{step.title}</h3>
-                <p className="mt-1.5 max-w-sm leading-relaxed text-muted">
-                  {step.desc}
-                </p>
-              </li>
-            ))}
-          </ol>
-          <div className="sui-paper-sm mt-8 inline-flex items-center gap-3 rounded-xl border-2 border-border-strong bg-surface px-4 py-3 font-mono text-sm">
+          <Timeline />
+          <div className="sui-paper-sm mt-10 inline-flex items-center gap-3 rounded-xl border-2 border-border-strong bg-surface px-4 py-3 font-mono text-sm">
             <span className="text-accent">$</span>
             <span className="text-fg">npx shadcn add @stacklyui/spotlight-card</span>
           </div>

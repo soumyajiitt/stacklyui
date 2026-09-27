@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
-import { ThemeProvider, ThemeScript } from "@stacklyui/ui";
+import { ThemeProvider, ThemeScript, Toaster } from "@stacklyui/ui";
 import { SiteNav } from "@/components/site-nav";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { CursorFollower } from "@/components/cursor-follower";
+import { CommandPalette } from "@/components/command-palette";
+import { SuggestComponentDialog } from "@/components/suggest-component-dialog";
+import { BackToTop } from "@/components/back-to-top";
 import "./globals.css";
 
 const inter = Inter({
@@ -63,6 +66,10 @@ export default function RootLayout({
           <CursorFollower />
           <SiteNav />
           {children}
+          <CommandPalette />
+          <SuggestComponentDialog />
+          <BackToTop />
+          <Toaster richColors closeButton />
         </ThemeProvider>
       </body>
     </html>
