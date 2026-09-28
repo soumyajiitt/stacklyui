@@ -61,7 +61,7 @@
       "type": "registry:ui",
       "title": "Aurora Background",
       "description": "A full-bleed animated aurora backdrop.",
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [
         {
           "path": "../../packages/ui/src/components/aurora-background.tsx",
@@ -76,7 +76,7 @@
       "title": "Spotlight Card",
       "description": "Glass card with a pointer-tracked spotlight glow.",
       "dependencies": ["motion"],
-      "registryDependencies": ["cn", "use-pointer-vars"],
+      "registryDependencies": ["@stacklyui/cn", "@stacklyui/use-pointer-vars"],
       "files": [
         {
           "path": "../../packages/ui/src/components/spotlight-card.tsx",
@@ -90,7 +90,7 @@
       "type": "registry:ui",
       "title": "3D Tilt Card",
       "description": "A card that tilts in 3D toward the cursor with a light glare.",
-      "registryDependencies": ["cn", "use-reduced-motion"],
+      "registryDependencies": ["@stacklyui/cn", "@stacklyui/use-reduced-motion"],
       "files": [
         {
           "path": "../../packages/ui/src/components/card-3d.tsx",
@@ -118,7 +118,7 @@
       "type": "registry:ui",
       "title": "Gradient Text",
       "description": "Text painted with an animated clipped gradient.",
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [
         {
           "path": "../../packages/ui/src/components/gradient-text.tsx",
@@ -132,7 +132,7 @@
       "type": "registry:ui",
       "title": "Bento Grid",
       "description": "Responsive bento layout with hover lift and pointer glow.",
-      "registryDependencies": ["cn", "use-pointer-vars"],
+      "registryDependencies": ["@stacklyui/cn", "@stacklyui/use-pointer-vars"],
       "files": [
         {
           "path": "../../packages/ui/src/components/bento-grid.tsx",
@@ -146,7 +146,7 @@
       "type": "registry:ui",
       "title": "Animated Beam",
       "description": "A traveling light beam drawn between two DOM elements.",
-      "registryDependencies": ["use-reduced-motion"],
+      "registryDependencies": ["@stacklyui/use-reduced-motion"],
       "files": [
         {
           "path": "../../packages/ui/src/components/animated-beam.tsx",
@@ -160,7 +160,7 @@
       "type": "registry:ui",
       "title": "Marquee",
       "description": "Infinite GPU-driven marquee with pause-on-hover.",
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [
         {
           "path": "../../packages/ui/src/components/marquee.tsx",
@@ -175,7 +175,7 @@
       "title": "Magnetic Button",
       "description": "A button that leans toward the cursor, with a press ripple.",
       "dependencies": ["motion"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [
         {
           "path": "../../packages/ui/src/components/magnetic-button.tsx",
@@ -190,7 +190,7 @@
       "title": "Number Ticker",
       "description": "Animated count-up that triggers when scrolled into view.",
       "dependencies": ["motion"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [
         {
           "path": "../../packages/ui/src/components/number-ticker.tsx",
@@ -205,7 +205,7 @@
       "title": "Button",
       "description": "Versatile button with six variants, four sizes, and asChild.",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/button.tsx", "type": "registry:ui", "target": "components/stackly/button.tsx" }]
     },
     {
@@ -214,7 +214,7 @@
       "title": "Badge",
       "description": "Status/label pill with soft, solid, and semantic variants.",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/badge.tsx", "type": "registry:ui", "target": "components/stackly/badge.tsx" }]
     },
     {
@@ -222,7 +222,7 @@
       "type": "registry:ui",
       "title": "Input",
       "description": "Text input with focus ring and invalid state.",
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/input.tsx", "type": "registry:ui", "target": "components/stackly/input.tsx" }]
     },
     {
@@ -230,7 +230,7 @@
       "type": "registry:ui",
       "title": "Textarea",
       "description": "Multi-line text input matching Input.",
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/textarea.tsx", "type": "registry:ui", "target": "components/stackly/textarea.tsx" }]
     },
     {
@@ -239,7 +239,7 @@
       "title": "Label",
       "description": "Accessible form label (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/label.tsx", "type": "registry:ui", "target": "components/stackly/label.tsx" }]
     },
     {
@@ -247,7 +247,7 @@
       "type": "registry:ui",
       "title": "Card",
       "description": "Composable card: header, title, description, content, footer.",
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/card.tsx", "type": "registry:ui", "target": "components/stackly/card.tsx" }]
     },
     {
@@ -256,7 +256,7 @@
       "title": "Separator",
       "description": "Thin visual divider (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/separator.tsx", "type": "registry:ui", "target": "components/stackly/separator.tsx" }]
     },
     {
@@ -265,7 +265,7 @@
       "title": "Avatar",
       "description": "Image avatar with graceful fallback (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/avatar.tsx", "type": "registry:ui", "target": "components/stackly/avatar.tsx" }]
     },
     {
@@ -273,7 +273,7 @@
       "type": "registry:ui",
       "title": "Skeleton",
       "description": "Loading placeholder with a shimmer sweep.",
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/skeleton.tsx", "type": "registry:ui", "target": "components/stackly/skeleton.tsx" }]
     },
     {
@@ -282,7 +282,7 @@
       "title": "Checkbox",
       "description": "Checkbox with an animated check-draw (Radix + Motion).",
       "dependencies": ["radix-ui", "motion"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/checkbox.tsx", "type": "registry:ui", "target": "components/stackly/checkbox.tsx" }]
     },
     {
@@ -291,7 +291,7 @@
       "title": "Switch",
       "description": "Toggle switch with a spring-eased thumb (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/switch.tsx", "type": "registry:ui", "target": "components/stackly/switch.tsx" }]
     },
     {
@@ -300,7 +300,7 @@
       "title": "Radio Group",
       "description": "Radio group with a spring indicator (Radix + Motion).",
       "dependencies": ["radix-ui", "motion"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/radio-group.tsx", "type": "registry:ui", "target": "components/stackly/radio-group.tsx" }]
     },
     {
@@ -309,7 +309,7 @@
       "title": "Select",
       "description": "Animated select menu (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/select.tsx", "type": "registry:ui", "target": "components/stackly/select.tsx" }]
     },
     {
@@ -318,7 +318,7 @@
       "title": "Tabs",
       "description": "Tabs with a sliding active indicator (Radix + Motion).",
       "dependencies": ["radix-ui", "motion"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/tabs.tsx", "type": "registry:ui", "target": "components/stackly/tabs.tsx" }]
     },
     {
@@ -327,7 +327,7 @@
       "title": "Tooltip",
       "description": "Tooltip with a pop-in animation (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/tooltip.tsx", "type": "registry:ui", "target": "components/stackly/tooltip.tsx" }]
     },
     {
@@ -336,7 +336,7 @@
       "title": "Accordion",
       "description": "Accordion with animated height (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/accordion.tsx", "type": "registry:ui", "target": "components/stackly/accordion.tsx" }]
     },
     {
@@ -345,7 +345,7 @@
       "title": "Dialog",
       "description": "Modal dialog with animated overlay and content (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/dialog.tsx", "type": "registry:ui", "target": "components/stackly/dialog.tsx" }]
     },
     {
@@ -354,7 +354,7 @@
       "title": "Dropdown Menu",
       "description": "Dropdown menu with pop animation (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/dropdown-menu.tsx", "type": "registry:ui", "target": "components/stackly/dropdown-menu.tsx" }]
     },
     {
@@ -362,7 +362,7 @@
       "type": "registry:ui",
       "title": "Alert",
       "description": "Callout banner with a signature accent rail.",
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/alert.tsx", "type": "registry:ui", "target": "components/stackly/alert.tsx" }]
     },
     {
@@ -371,7 +371,7 @@
       "title": "Alert Dialog",
       "description": "Modal confirmation for destructive actions (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/alert-dialog.tsx", "type": "registry:ui", "target": "components/stackly/alert-dialog.tsx" }]
     },
     {
@@ -380,7 +380,7 @@
       "title": "Popover",
       "description": "Floating content anchored to a trigger (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/popover.tsx", "type": "registry:ui", "target": "components/stackly/popover.tsx" }]
     },
     {
@@ -389,7 +389,7 @@
       "title": "Hover Card",
       "description": "Preview card shown on hover (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/hover-card.tsx", "type": "registry:ui", "target": "components/stackly/hover-card.tsx" }]
     },
     {
@@ -414,7 +414,7 @@
       "title": "Progress",
       "description": "Determinate progress bar with gradient fill (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/progress.tsx", "type": "registry:ui", "target": "components/stackly/progress.tsx" }]
     },
     {
@@ -423,7 +423,7 @@
       "title": "Slider",
       "description": "Range slider with gradient track and paper thumb (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/slider.tsx", "type": "registry:ui", "target": "components/stackly/slider.tsx" }]
     },
     {
@@ -432,7 +432,7 @@
       "title": "Calendar",
       "description": "Dependency-free date picker — single/multiple/range, sliding month transitions, month & year quick-jump, full keyboard grid.",
       "dependencies": ["motion"],
-      "registryDependencies": ["cn", "use-reduced-motion"],
+      "registryDependencies": ["@stacklyui/cn", "@stacklyui/use-reduced-motion"],
       "files": [{ "path": "../../packages/ui/src/components/calendar.tsx", "type": "registry:ui", "target": "components/stackly/calendar.tsx" }]
     },
     {
@@ -441,7 +441,7 @@
       "title": "Toggle",
       "description": "Two-state toggle button (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/toggle.tsx", "type": "registry:ui", "target": "components/stackly/toggle.tsx" }]
     },
     {
@@ -450,7 +450,7 @@
       "title": "Toggle Group",
       "description": "A set of toggles, single or multiple (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn", "toggle"],
+      "registryDependencies": ["@stacklyui/cn", "@stacklyui/toggle"],
       "files": [{ "path": "../../packages/ui/src/components/toggle-group.tsx", "type": "registry:ui", "target": "components/stackly/toggle-group.tsx" }]
     },
     {
@@ -459,7 +459,7 @@
       "title": "Breadcrumb",
       "description": "Path to the current page.",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/breadcrumb.tsx", "type": "registry:ui", "target": "components/stackly/breadcrumb.tsx" }]
     },
     {
@@ -467,7 +467,7 @@
       "type": "registry:ui",
       "title": "Kbd",
       "description": "Keyboard-key hint with a keycap look.",
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/kbd.tsx", "type": "registry:ui", "target": "components/stackly/kbd.tsx" }]
     },
     {
@@ -475,7 +475,7 @@
       "type": "registry:ui",
       "title": "Spinner",
       "description": "Accessible loading spinner.",
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/spinner.tsx", "type": "registry:ui", "target": "components/stackly/spinner.tsx" }]
     },
     {
@@ -484,7 +484,7 @@
       "title": "Sheet",
       "description": "Edge-anchored slide-in panel (Radix).",
       "dependencies": ["radix-ui"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/sheet.tsx", "type": "registry:ui", "target": "components/stackly/sheet.tsx" }]
     },
     {
@@ -493,7 +493,7 @@
       "title": "Combobox",
       "description": "Dependency-free searchable single-select — typeahead filtering, grouping, creatable rows, ARIA combobox keyboard nav, and a portal-positioned dropdown (no Radix, no cmdk).",
       "dependencies": ["motion"],
-      "registryDependencies": ["cn", "use-reduced-motion"],
+      "registryDependencies": ["@stacklyui/cn", "@stacklyui/use-reduced-motion"],
       "files": [{ "path": "../../packages/ui/src/components/combobox.tsx", "type": "registry:ui", "target": "components/stackly/combobox.tsx" }]
     },
     {
@@ -502,7 +502,7 @@
       "title": "Multi Select",
       "description": "Searchable multi-select with inline removable chips, select-all, +N-more overflow, a selection cap, grouping, and creatable tags — dependency-free (no Radix).",
       "dependencies": ["motion"],
-      "registryDependencies": ["cn", "use-reduced-motion"],
+      "registryDependencies": ["@stacklyui/cn", "@stacklyui/use-reduced-motion"],
       "files": [{ "path": "../../packages/ui/src/components/multi-select.tsx", "type": "registry:ui", "target": "components/stackly/multi-select.tsx" }]
     },
     {
@@ -511,7 +511,7 @@
       "title": "Pagination",
       "description": "Stateful pagination with ellipsis truncation, a gliding active pill (Motion layoutId), edge jumps, summary line, page jumper, and a rows-per-page picker.",
       "dependencies": ["motion"],
-      "registryDependencies": ["cn"],
+      "registryDependencies": ["@stacklyui/cn"],
       "files": [{ "path": "../../packages/ui/src/components/pagination.tsx", "type": "registry:ui", "target": "components/stackly/pagination.tsx" }]
     },
     {
@@ -520,7 +520,7 @@
       "title": "Date Picker",
       "description": "A formatted date field wired to the dependency-free Calendar in a popover — single or range, dual-month panels, presets, markers, clearable, native form support.",
       "dependencies": ["radix-ui", "motion"],
-      "registryDependencies": ["cn", "use-reduced-motion", "popover", "calendar"],
+      "registryDependencies": ["@stacklyui/cn", "@stacklyui/use-reduced-motion", "@stacklyui/popover", "@stacklyui/calendar"],
       "files": [{ "path": "../../packages/ui/src/components/date-picker.tsx", "type": "registry:ui", "target": "components/stackly/date-picker.tsx" }]
     },
     {
@@ -529,7 +529,7 @@
       "title": "Toast",
       "description": "Sonner-style imperative toasts — a collapsed stack that expands on hover, swipe-to-dismiss, an auto-dismiss progress bar, promise/loading states, actions, and rich colors.",
       "dependencies": ["motion"],
-      "registryDependencies": ["cn", "use-reduced-motion"],
+      "registryDependencies": ["@stacklyui/cn", "@stacklyui/use-reduced-motion"],
       "files": [{ "path": "../../packages/ui/src/components/toast.tsx", "type": "registry:ui", "target": "components/stackly/toast.tsx" }]
     }
   ]
